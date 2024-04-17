@@ -1,0 +1,11 @@
+export const ProductFetching =  "ProductFetching";
+export const Loading =  "Loading";
+export const ProductError =  "ProductError";
+export const SingleProductFetching =  "SingleProductFetching";
+export const ADD_TO_CART =  "ADD_TO_CART";
+export const CALCULATE_ITEMS =  "CALCULATE_ITEMS";
+export const UPDATE_FILTER =  "UPDATE_FILTER";
+export const LOAD_PRODUCTS =  "LOAD_PRODUCTS";
+export const FILTER_PRODUCTS =  "FILTER_PRODUCTS";  
+export const add_to_WishList =  "add_to_WishList";  
+export const add_to_Cart_to_WishList =  "add_to_Cart_to_WishList";  
