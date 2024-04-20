@@ -14,8 +14,7 @@ import Footer from './Components/Footer';
 
 function App() {
   return ( 
-    <BrowserRouter>
-      {/* <NavBar/> */}
+    <BrowserRouter> 
     <Routes>
       <Route path='/' element={<WithNavBar Component={Home} />}/>
       <Route path='/login' element={<WithNavBar Component={Login} />}/>

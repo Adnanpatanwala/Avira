@@ -18,7 +18,7 @@ const NavBar = () => {
     <Wrapper> 
         <nav className='navbar'>
             <div className="logo">
-                <img src={Logo} alt="" />
+                <NavLink to='/'><img src={Logo} alt="" /></NavLink>
             </div>
 
             <div className="links">

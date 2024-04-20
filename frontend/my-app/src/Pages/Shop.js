@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Item from '../Components/Item';
 import Loading from '../Components/Loading';
@@ -6,10 +6,13 @@ import {uniqueValues} from "../utils/uniqueValue";
 import { useGlobalProductContex } from '../Context/ProductContex';
 import { FaCheck } from "react-icons/fa6";
 import { useFilterContext } from '../Context/FilterContext';
+import { FaFilter } from "react-icons/fa6";
+
 
 const Shop = () => {
     const {isloading} = useGlobalProductContex();
     const {updateFilter,filter,filterproduct:product,applyFilter} = useFilterContext();
+    const [filterOpen,setFilterOpen] = useState(false)
     const {price,color,size,category,max_price,min_price} = filter;
     if(isloading){
         return( 
@@ -119,6 +122,10 @@ const Shop = () => {
             </div>
             </div>
             <div className="right-shop">
+                <div className="header-shop-heading">
+                    <h4>Products</h4>
+                     <button ><FaFilter /></button>
+                </div> 
                   {
                     product.map((items)=>{
                         return ( 
@@ -199,6 +206,7 @@ color: white;
 .shop-container{
     display: grid;
     grid-template-columns: 25% 75%;
+    position: relative;
 } 
 .left-shop{  
     box-shadow: 0px 0px 5px gray;
@@ -228,6 +236,27 @@ label{
         width: 150px;
     }
     margin: 15px 0px;
+}
+.header-shop-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #2D2D2D;
+    padding: 8px 0px;
+    h4{
+        font-weight: 500;
+        color: #2D2D2D;
+    }
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        border: 1px solid #2D2D2D;
+        padding: 5px;
+        border-radius: 5px;
+    }
 }
 .header-shop h3{
     font-size: 18px;
@@ -266,6 +295,36 @@ label{
     grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
     grid-gap: 30px;
     justify-items: center;
+ }
+ .left-cont{
+    z-index: 2;
+ }
+ .header-shop-heading{
+    max-height: 30px;
+ }
+
+ @media screen and (max-width:767px) {
+    .left-shop{
+        display: none;
+        background-color: white;
+    }
+    .shop-container{
+        grid-template-columns: 1fr;
+    }
+    .left-cont{
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .right-shop{
+        padding: 10px;
+    }
  }
  
 `

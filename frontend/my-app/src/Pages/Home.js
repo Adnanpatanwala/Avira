@@ -5,6 +5,7 @@ import Explore from '../Images/Explore.svg'
 import Footware from '../Images/Footware.svg'
 import Demins from '../Images/Demins.svg'
 import Sweater from '../Images/Sweater.svg'
+import { NavLink } from 'react-router-dom'
 
 const Home = () => {
   return ( 
@@ -26,6 +27,7 @@ const Home = () => {
 
 
         <div className="footware">
+          <NavLink to='/about'>
         <div> 
           <h5>456 Items</h5>
           <div className="items-header">
@@ -34,6 +36,7 @@ const Home = () => {
           </div>
         </div>
           <img src={Footware} alt="" className='widerimg' />
+          </NavLink>
         </div>
 
         <div className="sweater">
