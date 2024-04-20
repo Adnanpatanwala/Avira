@@ -8,21 +8,25 @@ import  Register from './Pages/Register';
 import Shop from './Pages/Shop';
 import SingleProduct from './Pages/SingleProduct';
 import WishList from './Pages/WishList';
+import About from './Pages/About';
+import WithNavBar from './Components/HOE/WithNavBar';
+import Footer from './Components/Footer';
 
 function App() {
   return ( 
     <BrowserRouter>
-      <NavBar/>
+      {/* <NavBar/> */}
     <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/register' element={<Register/>}/>
-      <Route path='/cart' element={<Cart/>}/>
-      <Route path='/wishlist' element={<WishList/>}/>
-      {/* <Route path='/address' element={<Address/>}/> */}
-      <Route path='/shop' element={<Shop/>}/>
-      <Route path='/shop/:id' element={<SingleProduct/>}/>
+      <Route path='/' element={<WithNavBar Component={Home} />}/>
+      <Route path='/login' element={<WithNavBar Component={Login} />}/>
+      <Route path='/register' element={<WithNavBar Component={Register} />}/>
+      <Route path='/cart' element={<WithNavBar Component={Cart} />}/>
+      <Route path='/wishlist' element={<WithNavBar Component={WishList} />}/>
+      <Route path='/about' element={<WithNavBar Component={About} />}/>
+      <Route path='/shop' element={<WithNavBar Component={Shop} />}/>
+      <Route path='/shop/:id' element={<WithNavBar Component={SingleProduct} />}/>
     </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }

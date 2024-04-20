@@ -2,16 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import Image from '../Images/image 13.svg'
 import { TbTruckDelivery } from "react-icons/tb";
+import Img from "../Images/Demins.svg";
 
 const CartItem = (item) => {
     // console.log(item);
     const {image,size="small",color,desp,title,price,amount=1} = item.item;
     
   return ( 
-    <Wrapper>
+    <Wrapper >
         <div className="items-container">
             <div className="leftside-item">
-                <img src={image} alt="" />
+                <img src={Img} alt="" />
             </div>
             <div className="rightside-item">
                 <h4>{title}</h4>
@@ -46,7 +47,7 @@ const Wrapper = styled.div`
 .leftside-item img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .items-container{
     display: grid;
@@ -102,5 +103,81 @@ const Wrapper = styled.div`
         font-size: 16px;
         font-weight :500 ;
     }
+}
+@media screen and (max-width:767px){
+    
+    .cart-container{
+        display: block;
+        margin: 10px;
+        margin-top: 10px;
+        padding: 0px;
+    }
+    .header-cart {
+        margin: 0px; 
+        justify-content: space-between;
+        padding: 10px 0px;
+}
+.header-cart h2{
+    font-size: 14px;
+} 
+.header-cart li{
+    font-size: 12px;
+} 
+ .checkout-btn {
+    width: 100% !important;
+    
+}
+.checkout-btn-container{
+    position: sticky;
+    left: 0px;
+    bottom: 0px;
+
+}
+.leftside-item{
+    width: 100%;
+    max-width: 80px;
+    height: 50px;
+}
+.items-container{
+    gap: 10px;
+}
+.rightside-item h4{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.rightside-item .info{
+    font-size: 12px;
+}
+.rightside-item .sizeandq{
+    gap: 15px;
+    margin: 3px 0px;
+}
+.rightside-item .sizeandq .common{
+    font-size: 12px;
+}
+.price{
+    margin: 3px 0px;
+}
+.price h5{
+    font-size: 14px;
+}
+ .rightside-item .deliveryBy h4{
+    font-size: 10px;
+}
+.addressname label{
+    font-size: 10px;
+}
+.address-field p label{
+    font-size: 10px;
+}
+.addressname h5,.right-address p{
+    font-size: 12px;
+}
+.address-label{
+    padding: 15px;
+    padding-left: 0px;
+    grid-template-columns: 12% 88%;
+}
 }
 `

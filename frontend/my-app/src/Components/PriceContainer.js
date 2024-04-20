@@ -78,5 +78,27 @@ margin-top: 50px;
     gap: 10px;
     font-size: 16px;
 }
+
+@media screen and (max-width:767px) {
+    margin-top: 10px;   
+    .heading-price{
+        margin-bottom: 10px;
+    }
+    .heading-price h3{
+        font-size: 14px;
+    }
+    .left-cl h4,.right-cl h4{
+        font-size: 12px;
+    }
+    .order-btn{
+        position: sticky;
+        bottom: 0px;
+        left: 0px;
+        background-color: white; 
+        padding: 5px 0px;
+        outline: none;
+        border: none;
+    }
+}
  
 `

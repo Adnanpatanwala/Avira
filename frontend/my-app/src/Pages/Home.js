@@ -66,7 +66,7 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;
 
 const Wrapper = styled.div`
   
@@ -122,6 +122,37 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+
+  @media screen and (max-width:767px) {
+    .grid-container{  
+      display:block; 
+    }
+    .grid-container > *{
+      margin: 2px 0px;
+    }
+     
+    .explore h5,  .footware h5, .footware h5, .sweater h5, .demins h5{
+      font-size: 14px;
+      margin: 5px 0px;
+    }
+    .items-header {
+      margin-left: 10px;
+    }
+    .items-header h3 {
+        font-size: 16px;
+        top: 25px !important;
+      }
+      .items-header img{
+       width: 25px;
+     }
+     .explore .category-abs,.footware .category-abs ,.footware .category-abs,.sweater .category-abs ,.demins .category-abs{
+      top: 15px;
+     }
+     .grid-container {
+      margin-top: 20px;
+     }
   }
    
 `

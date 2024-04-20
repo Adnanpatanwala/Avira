@@ -4,10 +4,12 @@ import { FaArrowLeft } from "react-icons/fa";
 import CartItem from '../Components/CartItem';
 import PriceContainer from '../Components/PriceContainer'
 import { useCartContext } from '../Context/CartContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
+import Im from "../Images/Demins.svg"
 
 const Cart = () => {
     const {cart,totalAmount,totalItems} = useCartContext();
+    const item =  {Im,size:"small",color:"red",desp:"hello kem cho",title:"red tshirt",price:200,amount:1};
     const navigate  = useNavigate();
   return ( 
     <Wrapper className='global-container'>
@@ -20,9 +22,10 @@ const Cart = () => {
                 </div>
                 
                 <div className="listOfitems">
-                    {
+                    {/* {
                         cart.map((item,index)=><CartItem key={item.id} item={item}/>)
-                    } 
+                    }  */}
+                    <CartItem item={item}/> 
                 </div>
 
 
@@ -115,4 +118,53 @@ const Wrapper  = styled.div`
     font-weight: 500;
     text-align: center;
 }
+
+@media screen and (max-width:767px){
+    .cart-container{
+        display: block;
+        margin-top: 15px;
+    } 
+    
+    .header-cart h2{
+        font-size: 15px;
+    }
+    .header-cart {
+        gap: 10px;  
+    }
+    .header-cart button {
+        font-size: 15px;
+    }
+    .header-cart li{
+        font-size: 14px;
+    }
+    .rightside-cart{
+        padding: 0px;
+    }
+    .delivery-alert{
+        margin-bottom: 10px;
+    }
+    .delivery-alert h3{
+        font-size: 14px;
+    }
+    .coupon{
+        margin: 8px 0px;
+    }
+    .coupon h5{
+        font-size: 12px;
+    }
+    .coupon input{
+        padding: 5px 50px 5px 20px;
+        font-size: 12px;
+    }
+    .coupon button{
+        font-size: 12px;
+    }
+    .listOfitems{
+        height: 300px;
+    }
+   
+}
+
+
+
 `
