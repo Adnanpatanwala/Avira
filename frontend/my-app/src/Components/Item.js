@@ -4,6 +4,7 @@ import { HiOutlineHeart } from "react-icons/hi";
 import { HiHeart } from "react-icons/hi"; 
 import {useCartContext} from "../Context/CartContext";
 import {Link} from 'react-router-dom'
+import { FaArrowRight } from "react-icons/fa";
 
 const Item = ({image,category,title,description,price,_id:id}) => { 
     const {addTowishlist} = useCartContext();
@@ -16,25 +17,23 @@ const Item = ({image,category,title,description,price,_id:id}) => {
 
   return (
     <Wrapper>
-        	<div className="product-card"> 
+        	<Link className="product-card" to={`/shop/${id}`}> 
 		<div className="product-tumb">
 			<img src={image[0]} alt=""/>
 		</div>
 		<div className="product-details">
 			<span className="product-catagory">{category}</span>
-			<h4>{title}</h4> 
-			<p>{description.slice(0,50)}.......</p>
+			<h4>{title}</h4>  
 		</div>
         <div className='bottom-prd'>
 			<div className="product-bottom-details">
 				<div className="product-price"><small>₹{Number(price)-100}</small>₹{price}</div>
 				<div className="product-links">
-                    <button className='wishlist' onClick={()=>handleaddtoWishList(data) }>{fill?<HiOutlineHeart/>:<HiHeart />}</button>
-                    <Link className='cart' to={`/shop/${id}`}>View</Link>
+                    <Link className='cart'><FaArrowRight/></Link>
 				</div>
 			</div>
         </div>
-	</div>
+	</Link>
     </Wrapper>
   )
 }
@@ -42,18 +41,30 @@ const Item = ({image,category,title,description,price,_id:id}) => {
 export default Item;
 const Wrapper = styled.div`  
 
+width: 100%;
+height: 100%;
 
 
 .product-card { 
     a{
         text-decoration: none;
-    } 
-    max-width :300px ;
-    height: 450px;
-    box-shadow: 0 2px 7px #dfdfdf;
-    background: #fafafa;
+    }  
+    text-decoration: none;
+    box-shadow: 0px 5px 9px #dfdfdf;
+    background-color: #fafafa !important;
+    display: block; 
+     z-index: 2;
     
 }
+.product-card:hover{  
+    .cart{
+    background-color: #DB6B97; 
+    border :1px solid #DB6B97 ;
+    color: white; 
+    transform: rotate(-30deg); 
+}
+    
+} 
 
 .badge { 
     text-transform: uppercase;
@@ -61,16 +72,14 @@ const Wrapper = styled.div`
     font-weight: 700;
     background: #eb3c3c;
     color: #fff;
-    padding: 3px 10px;
+    padding: 3px 10px; 
 }
 
 .product-tumb {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 250px;
-    padding: 5px;
-    background: #f0f0f0;
+    height: 250px; 
 }
 
 .product-tumb img {
@@ -80,7 +89,8 @@ const Wrapper = styled.div`
 }
 
 .product-details {
-    padding: 20px;
+    padding: 10px 20px 0px 20px; 
+    background-color: white;
 }
 
 .product-catagory {
@@ -92,11 +102,10 @@ const Wrapper = styled.div`
     margin-bottom: 5px;
 }
 
-.product-details h4  {
-    line-break: anywhere;
+.product-details h4  { 
     font-weight: 500;
     display: block;
-    margin-bottom: 5px;
+    padding: 2px;
     text-transform: uppercase;
     color: #363636;
     text-decoration: none;
@@ -116,10 +125,10 @@ const Wrapper = styled.div`
 .product-bottom-details {
     margin-top: auto;
     display: flex;
-    align-items: center;
-    border-top: 1px solid #eee;
+    align-items: center; 
     padding-top: 5px;
-    padding: 10px 20px;
+    padding: 0px 20px 20px 20px;
+    background-color: white ;
 }
 .bottom-prd{
     display: block;
@@ -155,12 +164,19 @@ const Wrapper = styled.div`
     color: #4b4b4b;
 } 
 .cart{
-    background-color: #4b4b4b; 
+    background-color: transparent;
+    border :1px solid #2D2D2D ;
+    color: #2D2D2D;
     font-weight: 400;
-    padding: 3px 15px;
-    color: white;
-    border-radius: 6px;
-    font-size: 15px;
+    padding: 8px; 
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    box-sizing: border-box;
+    transition: 0.6s;
 }
+ 
   
 `

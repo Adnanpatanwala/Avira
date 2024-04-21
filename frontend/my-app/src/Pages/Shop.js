@@ -35,6 +35,7 @@ const Shop = () => {
                         return ( 
                             <>
                             <Item key={items._id} {...items}/> 
+                            <Item key={items._id} {...items}/> 
                             </>
                         )
                     })
@@ -117,9 +118,8 @@ color: white;
  .right-shop{
     padding: 20px; 
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns: repeat(auto-fit,250px);
     grid-gap: 30px;
-    justify-items: center;
  }
  .left-cont{
     z-index: 2;

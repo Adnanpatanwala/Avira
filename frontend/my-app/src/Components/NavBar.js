@@ -85,7 +85,7 @@ position: sticky;
 left: 0px;
 top: 0px;
 background-color: white;
-z-index: 2;
+z-index: 5;
  .navbar{
     display: flex;
     justify-content: space-between;
