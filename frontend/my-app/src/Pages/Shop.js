@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import Item from '../Components/Item';
 import Loading from '../Components/Loading';
-import {uniqueValues} from "../utils/uniqueValue";
-import { useGlobalProductContex } from '../Context/ProductContex';
-import { FaCheck } from "react-icons/fa6";
 import { useFilterContext } from '../Context/FilterContext';
-import { FaFilter } from "react-icons/fa6";
+import { useGlobalProductContex } from '../Context/ProductContex';
+ 
+import Filtercontainer from "../Components/FilterBox"
 
 
 const Shop = () => {
     const {isloading} = useGlobalProductContex();
-    const {updateFilter,filter,filterproduct:product,applyFilter} = useFilterContext();
-    const [filterOpen,setFilterOpen] = useState(false)
-    const {price,color,size,category,max_price,min_price} = filter;
+    const {filterproduct:product} = useFilterContext();
+    
     if(isloading){
         return( 
             <div className="backloader">
@@ -21,111 +19,17 @@ const Shop = () => {
             </div>
             )
         } 
-        const sizeArray = uniqueValues(product,"size");
-        const colorArray = uniqueValues(product,"colors");
-        const categoryArray = uniqueValues(product,"category");
   return ( 
     <Wrapper className="global-container">
         <div className="shop-container">
             <div className='left-cont'>
-            <div className="left-shop">
-                <div className="header-shop">
-                    <h3>Filter</h3>
-                </div>
-                <div className="category">
-                <label htmlFor="select">Select Category : </label> 
-                    <select name="category"  onChange={updateFilter} value={category} >
-                         {
-                             categoryArray.map((item,index)=>{
-                                 return (
-                                    <option key={index}>
-                                        {item}
-                                    </option>
-
-                                )
-                            })
-                         }  
-                    </select>
-                </div>
-
-                <div className="size">
-                <label htmlFor="size">Size</label>
-                    <div className="size-btns">
-                        {
-                            sizeArray.map((item,index)=>{
-                            return(<button 
-                            key={index} 
-                            className={item===size?'size-btn size-btn-active':"size-btn"}
-                            onClick={updateFilter}
-                            name="size"
-                            value={item}
-                            >
-                            {item}
-                            </button>
-                            )}
-                            )
-                        }                       
-                    </div>
-                </div>
-
-                <div className="colors-container">
-                    <label htmlFor="colors">Colors</label>
-                    <div className="colors">
-                     {
-                        colorArray.map((item,index)=>{
-                            if(item==="All"){
-                                return <button 
-                                key={index} 
-                                data-color={item}
-                                className={color===item?'all-btn-active':'all-btn'}
-                                name='colors' 
-                                onClick={updateFilter}
-                                >
-                                    {item}
-                                </button>
-                            }
-                            return <button 
-                            key={index}  
-                            data-color={item} 
-                            onClick={updateFilter}
-                            className={color===item?'color-btn-active color-btn':'color-btn'}
-                            style={{backgroundColor:item}}
-                            name='color'
-                           >
-                            {color===item?<FaCheck/>:null}
-                           </button>
-                        })
-                     }
-                    </div>
-                </div>
-                <div className="price">
-                    <label htmlFor="price">Price</label>
-                    <div className="inner-container-price">
-                        <input type="range"  id=""
-                            min={min_price}
-                            max={max_price}
-                            value={price}
-                            onChange={updateFilter}
-                            name="price"
-                            
-                        />
-                        <div className="price-change-container">
-                            <span>{min_price}</span>
-                            <p>{price}</p>
-                            <span>{max_price}</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="apply-filter">
-                    <button onClick={applyFilter}>Apply</button>
-                </div>
+                <Filtercontainer/>
             </div>
-            </div>
-            <div className="right-shop">
-                <div className="header-shop-heading">
+                {/* <div className="header-shop-heading">
                     <h4>Products</h4>
                      <button ><FaFilter /></button>
-                </div> 
+                </div>  */}
+            <div className="right-shop">
                   {
                     product.map((items)=>{
                         return ( 
@@ -208,86 +112,7 @@ color: white;
     grid-template-columns: 25% 75%;
     position: relative;
 } 
-.left-shop{  
-    box-shadow: 0px 0px 5px gray;
-    border-radius: 10px; 
-    padding: 20px;   
-    width: 90%;
-    position: sticky;
-    top: 50px;
-    left:0px; 
-    margin: 50px 0px;
-    box-sizing: border-box;
-}
-label{
-    display: block;
-    font-size: 12px;
-    color: gray;
-    font-weight: 400;
-}
-.category{
-    select{
-        outline: none;
-        background-color: #eeeeee;
-        border-radius: 5px;
-        padding: 2px;
-        box-sizing: border-box;
-        margin: 5px;
-        width: 150px;
-    }
-    margin: 15px 0px;
-}
-.header-shop-heading{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border-bottom: 1px solid #2D2D2D;
-    padding: 8px 0px;
-    h4{
-        font-weight: 500;
-        color: #2D2D2D;
-    }
-    button{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        border: 1px solid #2D2D2D;
-        padding: 5px;
-        border-radius: 5px;
-    }
-}
-.header-shop h3{
-    font-size: 18px;
-    font-weight: 500;
-    text-transform: capitalize;
-}
-.size{ 
-    margin: 15px 0px;
-}
- 
-
-.colors {
-    display: flex; 
-    gap: 10px;
-}
- 
-.colors-container{
-    margin: 15px 0px;
-} 
- .apply-filter button{
-    width: 100%;
-    padding: 6px 0px;
-    background-color: #2D2D2D;
-    color: white;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 15px 0px;
- }
-  
+   
 
  .right-shop{
     padding: 20px; 
@@ -305,7 +130,6 @@ label{
 
  @media screen and (max-width:767px) {
     .left-shop{
-        display: none;
         background-color: white;
     }
     .shop-container{
@@ -321,9 +145,13 @@ label{
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
+        display: none;
     }
     .right-shop{
         padding: 10px;
+    }
+    .header-shop-heading{
+        display: flex;
     }
  }
  

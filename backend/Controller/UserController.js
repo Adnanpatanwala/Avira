@@ -60,7 +60,7 @@ const Login = async(req,res)=>{
         const {isValid} = existingtoken;
         if(!isValid) throw custError.Unauthenticated('Invalid crendentials');
         CreateCookies({res,user:tokenuser, refreshToken: existingtoken.refreshToken});
-    res.status(StatusCodes.OK).json({user:tokenuser});
+        res.status(StatusCodes.OK).json({user:tokenuser});
     return;
 }
 
