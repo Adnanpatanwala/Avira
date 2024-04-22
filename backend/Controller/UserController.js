@@ -6,21 +6,20 @@ const { StatusCodes } = require('http-status-codes');
 const {CreateCookies}= require('../utils/jwt');
 const CreateTokenUser = require('../utils/CreateUser');
 const TokenSchema = require('../models/Token')
+const {sentOtp}  = require('./verifyOtp');
  
 const registerUser = async(req,res)=>{
-    const {email,firstname} = req.body;
-    const finduser = await UserSchema.findOne({email});
+    const {phoneno,firstname} = req.body;
+    const finduser = await UserSchema.findOne({phoneno});
  
     if(finduser){
         throw new custError.BadRequestError('user alread present');
     } 
-    const verificationToken = crypto.randomBytes(40).toString('hex');
-    const user = await UserSchema.create({...req.body,verificationToken:verificationToken});
     
-    const name = firstname;
-    const origin = 'localhost:5000'
-    // sendVerificationEmail({name,email,verificationToken,origin});
-    res.status(StatusCodes.CREATED).json('check you email for verification');
+    const verificationToken = crypto.randomBytes(40).toString('hex');
+    await UserSchema.create({...req.body,verificationToken:verificationToken});
+    await sentOtp(phoneno); 
+    res.status(StatusCodes.CREATED).json(`${firstname} OTP sent successfully` );
 }
 
 const veifyToken = async(req,res)=>{

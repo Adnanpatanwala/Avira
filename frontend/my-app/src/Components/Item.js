@@ -29,7 +29,7 @@ const Item = ({image,category,title,description,price,_id:id}) => {
 			<div className="product-bottom-details">
 				<div className="product-price"><small>₹{Number(price)-100}</small>₹{price}</div>
 				<div className="product-links">
-                    <Link className='cart'><FaArrowRight/></Link>
+                    <span className='cart'><FaArrowRight/></span>
 				</div>
 			</div>
         </div>
@@ -63,6 +63,17 @@ height: 100%;
     color: white; 
     transform: rotate(-30deg); 
 }
+  img{
+    transform: scale(1.2);
+}
+.product-tumb{
+    overflow: hidden;
+}
+.product-catagory{  
+    background-color: #DB6B97; 
+    color: white;
+    box-shadow: 0px 0px 3px #DB6B97;
+}
     
 } 
 
@@ -94,12 +105,18 @@ height: 100%;
 }
 
 .product-catagory {
-    display: block;
+    display: inline-block;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
-    color: #ccc;
-    margin-bottom: 5px;
+    color: #727070;
+    margin-bottom: 5px; 
+    box-shadow: 0px 0px 2px #727070;
+    padding: 2px 5px;
+    border-radius: 10px;
+    box-sizing: border-box;
+     
+
 }
 
 .product-details h4  { 

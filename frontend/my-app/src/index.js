@@ -6,10 +6,12 @@ import ProductContex from "./Context/ProductContex";
 import CartContex from "./Context/CartContext";
 import Filter from "./Context/FilterContext"
 import reportWebVitals from "./reportWebVitals";
+import AuthenticationContext from "./Context/AuthContext"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
+  <AuthenticationContext>
   <ProductContex>
     <CartContex>
       <Filter>
@@ -17,6 +19,7 @@ root.render(
       </Filter>
     </CartContex>
   </ProductContex>
+  </AuthenticationContext>
   // </React.StrictMode>
 );
 

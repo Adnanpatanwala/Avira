@@ -169,7 +169,7 @@ const Wrapper = styled.div`
   .star,
   .rating {
     font-size: 20px;
-    color: #7a7a7a;
+    color: #727070;
     font-weight: 300;
   }
   .rating h5 {

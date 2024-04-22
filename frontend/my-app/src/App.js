@@ -17,8 +17,8 @@ function App() {
     <BrowserRouter> 
     <Routes>
       <Route path='/' element={<WithNavBar Component={Home} />}/>
-      <Route path='/login' element={<WithNavBar Component={Login} />}/>
-      <Route path='/register' element={<WithNavBar Component={Register} />}/>
+      <Route path='/login' element={<Login />}/>
+      <Route path='/register' element={<Register/>}/>
       <Route path='/cart' element={<WithNavBar Component={Cart} />}/>
       <Route path='/wishlist' element={<WithNavBar Component={WishList} />}/>
       <Route path='/about' element={<WithNavBar Component={About} />}/>

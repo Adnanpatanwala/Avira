@@ -36,6 +36,9 @@ const Shop = () => {
                             <>
                             <Item key={items._id} {...items}/> 
                             <Item key={items._id} {...items}/> 
+                            <Item key={items._id} {...items}/> 
+                            <Item key={items._id} {...items}/> 
+                            <Item key={items._id} {...items}/> 
                             </>
                         )
                     })
@@ -122,7 +125,7 @@ color: white;
     grid-gap: 30px;
  }
  .left-cont{
-    z-index: 2;
+    z-index: 2; 
  }
  .header-shop-heading{
     max-height: 30px;

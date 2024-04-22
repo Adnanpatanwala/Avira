@@ -11,6 +11,8 @@ const LoginOrRegister = () => {
                 <img src={Illus} alt="" />
             </div>
         </div>
+
+
     
 </Wrapper>
   )

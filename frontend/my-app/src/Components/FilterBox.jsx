@@ -113,17 +113,17 @@ const FilterBox = () => {
 export default FilterBox;
 
 const Wrapper = styled.div`
-    .left-shop{  
+  
     box-shadow: 0px 0px 5px gray;
     border-radius: 10px; 
     padding: 20px;   
     width: 90%;
     position: sticky;
-    top: 50px;
+    top: 150px;
     left:0px; 
     margin: 50px 0px;
     box-sizing: border-box;
-}
+ 
 label{
     display: block;
     font-size: 12px;
