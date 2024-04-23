@@ -21,10 +21,13 @@ const Login = () => {
             const response = await axios.post('http://localhost:5000/api/v1/login',{email:email,password:password});
             if(response.status===200){
                 if(check){}
+                localStorage.setItem("name",response?.data?.user.name);
+                localStorage.setItem("id",response?.data?.user.id);
                 setEmail('');
                 setPassword('');
-                navigate(-1);
+                navigate('/');
             } 
+            console.log(response);
         } catch (error) {
             console.log(error);
         }
@@ -46,7 +49,7 @@ const Login = () => {
                 <form className="login-center-container" onSubmit={onSignIn}>
                     <h4>Nice to see you again!</h4>
                     {/* email-----     */}
-                    <input type="email"
+                    <input type="text"
                     placeholder='Enter Email'
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
@@ -173,4 +176,53 @@ z-index: 1;
     bottom: 0px; 
     cursor: pointer;
 }
+
+@media screen and (max-width:767px) {
+    .login-container{
+        display: block;
+    }
+    .bottom-img img{
+        width: 200px !important;
+    }
+    .bottom-img{
+        right: 0px;
+    }
+    .left-container-login img{
+        margin-left: 10px;
+        margin-top: 15px;
+        width: 80px;
+    }
+    .right-container-login{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 85%;
+        max-width: 400px;
+        box-sizing: border-box;
+    }
+    .login-center-container input{
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .forgot-container{
+        display: block;
+
+    }
+    .forgotpassword{  
+        display: block;
+        text-align: right;
+    }
+    .register-container h5,.register{
+        font-size: 12px;
+    }
+    .register-container{
+        gap: 0px;
+        justify-content: space-between;
+    }
+}
+
 `

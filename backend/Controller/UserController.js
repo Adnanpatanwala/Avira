@@ -7,6 +7,7 @@ const {CreateCookies}= require('../utils/jwt');
 const CreateTokenUser = require('../utils/CreateUser');
 const TokenSchema = require('../models/Token')
 const {sentOtp}  = require('./verifyOtp');
+const { log } = require('console');
  
 const registerUser = async(req,res)=>{
     const {phoneno,firstname} = req.body;
@@ -36,20 +37,28 @@ const veifyToken = async(req,res)=>{
     res.status(StatusCodes.OK).json(`${name} you are successfully verified`);
 }
 
+const isValidPhoneNumber = (phoneNumber) => { 
+    const phoneRegex = /^\+?\d{1,}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
 const Login = async(req,res)=>{
     
-    const {email,password} = req.body;
-
-    if(!email || !password){
+    const {email:emailOrphoneno,password} = req.body;
+ 
+    if(!emailOrphoneno || !password){
         throw new custError.BadRequestError('enter the email');
     } 
-    const user = await UserSchema.findOne({email:email}).select('-phoneno');
+    
+    const mode =  isValidPhoneNumber(emailOrphoneno)?"phoneno":"email";
+    const user = await UserSchema.findOne({[mode]:emailOrphoneno});
  
     
     if(!user){
         throw new custError.BadRequestError('No user found');
     } 
-    if(!user.isEmailVerified) throw new custError.BadRequestError('email is not verified');
+    if(mode==="email" && !user.isEmailVerified) throw new custError.BadRequestError('email is not verified');
+    if(mode==="phoneno" && !user.isPhonenoVerified) throw new custError.BadRequestError('phone is not verified');
     const checkPassword = await user.comparePassword(password); 
     if(!checkPassword)throw new custError.Unauthenticated('password doesnt match');
     

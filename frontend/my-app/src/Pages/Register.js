@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import LoginOrRegister from '../Components/LoginOrRegister'
 import OtpPop from '../Components/OtpPop';
@@ -18,6 +18,8 @@ import {useAuthContext} from "../Context/AuthContext"
   const [confirmPassword,setConfirmPassword] = useState('');
   const [email,setEmail] = useState('');
   const [phoneno, setphone] = useState('');
+
+  const popup = useRef();
   
   // const [openOTP,SetOtp] = useState(false);
   
@@ -67,8 +69,8 @@ import {useAuthContext} from "../Context/AuthContext"
                 </form>
             </div>
             
-            <div className="otpcontainer">
-               <OtpPop phoneno={phoneno}/> 
+            <div className="otpcontainer" ref={popup}>
+               <OtpPop phoneno={phoneno} popup={popup}/> 
             </div>
             
       </div>

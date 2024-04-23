@@ -20,7 +20,7 @@ const LoginOrRegister = () => {
 
 export default LoginOrRegister
 const Wrapper = styled.div`
- 
+ height: 100%;
 .left-container-login img{
     margin-left: 20px;
     margin-top: 50px;
