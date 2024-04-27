@@ -8,7 +8,12 @@ import CartBtn from '../Images/Cartbtn.svg';
 import {NavLink} from 'react-router-dom'
 import { useCartContext } from '../Context/CartContext'; 
 import { CiMenuFries } from "react-icons/ci";
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md"; 
+import { FaUserCircle } from "react-icons/fa";
+
+
+
+
 
 
 const NavBar = () => {
@@ -42,6 +47,9 @@ const NavBar = () => {
                 <div className="wishlist-btn">
                     <NavLink to='/wishlist'><img src={WishList} alt="" /></NavLink>
                     {wishlist.length>0 && <div className="wishlist-count">{wishlist.length}</div>}
+                </div>
+                <div>
+                <button className="mobile-login"><FaUserCircle /></button>
                 </div>
                 <div className="hamburger">
                     <button onClick={()=>setOpenSidebar(true)}><CiMenuFries /></button>
@@ -206,8 +214,29 @@ z-index: 5;
   .hamburger{
     display: none;
   }
+
+  .mobile-login{ 
+    color: #DB6B97;
+    display: none;
+  }
   
   
+
+  @media screen and (min-width:767px) and (max-width:991px) {
+    .login{
+        display: none;
+    }
+    .links {
+        gap: 25px;
+    }
+    .navbar{ 
+        padding: 10px 25px
+    } 
+    .right-corner > *{
+        display : flex;
+        align-items: center;
+    }
+  }
   
   @media screen and (max-width:767px){
      .hamburger{
@@ -236,6 +265,16 @@ z-index: 5;
         display: flex;
         align-items: center;
         background:none; 
+    }
+    .mobile-login > *{
+        width: 22px;
+        height: 22px;
+    }
+    .cart-btn,.wishlist-btn{
+        display: none;
+    }
+    .mobile-login{
+        display: block;
     }
  }
 `

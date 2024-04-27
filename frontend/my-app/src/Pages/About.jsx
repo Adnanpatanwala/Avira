@@ -3,6 +3,7 @@ import Address from '../Components/Address'
 import styled from 'styled-components'
 import CartItem from '../Components/CartItem'
 import Im from "../Images/Demins.svg" 
+import SummaryCard from '../Components/SummaryCard'
 
 const About = () => {
     const item =  {Im,size:"small",color:"red",desp:"hello kem cho",title:"red tshirt",price:200,amount:1};
@@ -11,31 +12,29 @@ const About = () => {
         <div className="address-container">
 
       <div className="cart-container">
-            <div className="leftside-address">
-                <div className="header-cart">
-                {/* <button onClick={()=>navigate(-1)}><FaArrowLeft /></button> */}
-                <h2> ORDER SUMMARY</h2>
-                <li>1 Items</li>
-                </div>
-                
-                <div className="listOfitems">
-                      <CartItem item={item}/> 
-                      <CartItem item={item}/> 
-                      <CartItem item={item}/> 
-                </div>
-            </div>
-            <div className="rightside-cart">
+      <div className="rightside-cart">
                 <div className="header-cart"> 
                     <h2>Select Address</h2> 
                 </div>
                 
                 <div className="listOfitems"> 
-                    <Address/> 
-                    <Address/> 
-                    <Address/> 
-                    <Address/> 
+                    <Address/>  
                 </div>
             </div>
+            <div className="leftside-address">
+                <div className="header-cart"> 
+                <h2> ORDER SUMMARY</h2>
+                 <button className='viewall'>view all</button>
+                </div>
+                
+                <div className="listOfitems"> 
+                        <SummaryCard {...item}/>
+                        <SummaryCard {...item}/>
+                        <SummaryCard {...item}/>
+                        <SummaryCard {...item}/>
+                </div>
+            </div>
+             
             </div>
             <div className="checkout-btn-container">
             <button className='checkout-btn'>Proceed to Payment</button>
@@ -49,6 +48,9 @@ export default About;
 
 const Wrapper = styled.div`
 .address-container{
+    .items-container{
+        box-shadow: none;
+    }
     .cart-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -97,8 +99,13 @@ const Wrapper = styled.div`
     display: block;
     margin-right: 30px;
 }
+
+.viewall{
+    font-size: 12px !important;
+    color: #DB6B97;
+}
 @media screen and (max-width:767px){
-    
+     
     .cart-container{
         display: block;
         margin: 10px;
@@ -173,6 +180,14 @@ const Wrapper = styled.div`
     grid-template-columns: 12% 88%;
 }
 }
+
+
+
+
+
+
+
+
 }
 
 `

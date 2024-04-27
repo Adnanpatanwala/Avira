@@ -4,6 +4,7 @@ import Star from "../Components/Stars"
 import { Link } from "react-router-dom"; 
 import QuantityBtn from "../Components/QuantityBtn";
 import {useCartContext} from "../Context/CartContext"
+import { FaCheck } from "react-icons/fa6";
 
 const SinglePageContent = ({singleProduct}) => {
     
@@ -95,25 +96,16 @@ const SinglePageContent = ({singleProduct}) => {
 
             <div className="color-container">
                 <label htmlFor="colors">Colors</label>
-              <select
-                name="color"
-                id="color"
-                value={mainColor}
-                onChange={(e) => setMainColor(e.target.value)}
-              >
+               <div className="color-section">
                 {colors &&
                   colors.map((item, index) => {
-                    return (
-                      <option value={`${item}`} key={index}>
-                        {item}
-                      </option>
+                    return ( 
+                      <button className="product-color" style={{backgroundColor:`${item}`}} onClick={()=>setMainColor(item)}>
+                        {mainColor===item?<FaCheck/>:null}
+                    </button>
                     );
-                  })}
-              </select>
-
-              
-
-
+                  })} 
+                  </div>
 
             </div>
           </div>
@@ -143,6 +135,21 @@ const SinglePageContent = ({singleProduct}) => {
 
 export default SinglePageContent;
 const Wrapper = styled.div`
+.product-color{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white ;
+  
+}
+.color-section{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
   .left-prdDetail {
     width: 400px;
     margin: auto 20px;
@@ -249,4 +256,67 @@ const Wrapper = styled.div`
     color: #212529;
 
   }
+ 
+
+  @media screen and (max-width:767px){
+    .single-product-container{
+      display: block;
+      padding: 0px 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .left-prdDetail{
+      width: 100%;
+    }
+    .maincontainer-img,.right-prdDetail{
+      width: 100%;
+      margin: 0px;
+    }
+    .maincontainer-img{ 
+      width: 100%;
+      height: 250px;
+      margin: auto;
+    }
+    .title-prd h3{
+      margin-top: 10px;
+      font-size: 18px;
+    }
+    .rating h5{
+      font-size: 14px; 
+      margin-bottom: 5px;
+    }
+    .rating-star{
+      gap: 10px;
+    }
+    .prc-through{
+      font-size: 15px;
+    }
+    .act-prc{
+      font-size: 20px;
+    }
+    .price-prd{
+      margin: 0px;
+    }
+    .description-prd{
+      margin: 0px;
+      font-size: 12px;
+    }
+      .size-container label,  .color-container label{
+        font-size: 12px;
+      }
+       .size, #color{
+        font-size: 12px;
+       }
+       .addtocart{
+        font-size: 14px;
+       }
+       .addtocart-btn{
+        margin-top: 20px;
+       }
+       .qtybtn{
+        width: 100px;
+       }
+  }
+
+
 `;

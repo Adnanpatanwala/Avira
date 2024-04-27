@@ -127,6 +127,17 @@ const Wrapper = styled.div`
     object-fit: cover;
   }
 
+@media screen and (min-width:767px) and (max-width:991px) {
+  .explore h5,   .footware h5,  .footware h5,  .sweater h5,   .demins h5 {
+    font-size: 12px;
+  }
+  .explore .items-header,  .footware .items-header,.footware .items-header, .sweater .items-header,.demins .items-header{
+    font-size: 13px;
+  } 
+   .explore div,   .footware div,  .footware div,   .sweater div,   .demins div {
+      top: 25px;
+   }
+}
 
   @media screen and (max-width:767px) {
     .grid-container{  
