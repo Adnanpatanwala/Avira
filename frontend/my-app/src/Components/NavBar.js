@@ -10,6 +10,8 @@ import { useCartContext } from '../Context/CartContext';
 import { CiMenuFries } from "react-icons/ci";
 import { MdOutlineClose } from "react-icons/md"; 
 import { FaUserCircle } from "react-icons/fa";
+import { useAuthContext } from '../Context/AuthContext';
+import { FaArrowCircleDown } from "react-icons/fa";
 
 
 
@@ -17,6 +19,9 @@ import { FaUserCircle } from "react-icons/fa";
 
 
 const NavBar = () => {
+ 
+    const {cookies} = useAuthContext();
+
     const {totalItems,wishlist} = useCartContext();
     const [openSidebar,setOpenSidebar] = useState(false);
    return ( 
@@ -34,9 +39,15 @@ const NavBar = () => {
             </div>
 
             <div className="right-corner">
-                <div className="login">
+                { 
+                    !cookies?.user ?     
+                    <div className="login">
                     <NavLink to='/login' ><img src={User} alt="" /> Login/Register</NavLink>
-                </div>
+                </div>:
+                <button className='user-login'><p>{cookies.user}</p>
+                <FaArrowCircleDown />
+                </button>
+                }
                 <div className="search-btn">
                     <button><img src={Seatchbtn} alt="" /></button>
                 </div>
@@ -220,6 +231,19 @@ z-index: 5;
     display: none;
   }
   
+  .user-login{
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    color: white; 
+    padding: 0px 10px; 
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #DB6B97;
+     
+  }
   
 
   @media screen and (min-width:767px) and (max-width:991px) {

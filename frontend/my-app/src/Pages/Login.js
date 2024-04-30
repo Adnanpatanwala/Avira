@@ -7,8 +7,13 @@ import ToggleBtn from '../Components/ToggleBtn';
 import { FaRegEyeSlash } from "react-icons/fa6"; 
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
+ 
+import { useAuthContext } from '../Context/AuthContext';
 const Login = () => { 
 
+    const {setCookie} = useAuthContext();
+
+     
     const [view,setView] = useState({open:false,type:'password'});
     const [check,setCheck] = useState(true)
     const navigate = useNavigate(); 
@@ -20,14 +25,16 @@ const Login = () => {
         try {
             const response = await axios.post('http://localhost:5000/api/v1/login',{email:email,password:password});
             if(response.status===200){
-                if(check){}
-                localStorage.setItem("name",response?.data?.user.name);
-                localStorage.setItem("id",response?.data?.user.id);
-                setEmail('');
-                setPassword('');
-                navigate('/');
+              
+                 setCookie("accessToken",response?.data?.accessToken);
+                 setCookie("refreshToken",response?.data?.refreshToken );
+                 setCookie("user", response?.data.user.name)
+                 console.log();
+                 setEmail('');
+                 setPassword(''); 
+                 navigate('/');
             } 
-            console.log(response);
+
         } catch (error) {
             console.log(error);
         }
@@ -37,9 +44,7 @@ const Login = () => {
         setView({...view,open:!view.open,type:view.type === 'password' ? 'text' : 'password'}); 
     }
 
-    const handleChange=()=>{
-        setCheck(old=>!old);
-    }
+     
 
   return ( 
     <Wrapper> 
@@ -66,7 +71,7 @@ const Login = () => {
                     
                     <div className="forgot-container">
                         <span className='togglebtn'>
-                            <ToggleBtn check={check} handleChange={handleChange}/>
+                            <ToggleBtn check={check}  />
                             <h5>Remember me</h5>
                         </span>
                         <NavLink className='forgotpassword'>forgot password?</NavLink>

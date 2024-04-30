@@ -6,11 +6,27 @@ import PriceContainer from '../Components/PriceContainer'
 import { useCartContext } from '../Context/CartContext';
 import { useNavigate } from 'react-router-dom'; 
 import Im from "../Images/Demins.svg"
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const {cart,totalAmount,totalItems} = useCartContext();
     const item =  {Im,size:"small",color:"red",desp:"hello kem cho",title:"red tshirt",price:200,amount:1};
     const navigate  = useNavigate();
+
+if(cart.length<1){
+    return <Wrapper>
+    <div className='empty-cart'>
+    <h2 className='h-cart-empty'>0 Items in the cart</h2>
+    <div className='empyt-btn-container'>
+    <Link to='/shop' className='empty-btn'>continue shopping</Link>
+    </div>
+    </div>
+    </Wrapper>
+}
+
+
+
   return ( 
     <Wrapper className='global-container'>
         <div className="cart-container">
@@ -22,10 +38,9 @@ const Cart = () => {
                 </div>
                 
                 <div className="listOfitems">
-                    {/* {
+                    {
                         cart.map((item,index)=><CartItem key={item.id} item={item}/>)
-                    }  */}
-                    <CartItem item={item}/> 
+                    }  
                 </div>
 
 
@@ -46,6 +61,9 @@ const Cart = () => {
 
 
                 <PriceContainer totalAmount={totalAmount} totalItems={totalItems}/>
+                <div>
+            <Link to="/cart/ordersummary" className="order-btn">Continue <FaArrowRight /></Link>
+        </div>
             </div>
         </div>
     </Wrapper>
@@ -54,6 +72,9 @@ const Cart = () => {
 
 export default Cart;
 const Wrapper  = styled.div`
+
+ 
+ 
 .cart-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -76,6 +97,20 @@ const Wrapper  = styled.div`
         display: flex;
         align-items: center;
     }
+}
+.order-btn {
+    color: white;
+    width: 100%;
+    background-color: #2D2D2D;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    border-radius: 8px;
+    padding: 6px 0px;
+    gap: 10px;
+    font-size: 16px;
+    text-decoration: none;
 }
 .listOfitems{
     height: calc(100vh - 165px);
@@ -117,6 +152,34 @@ const Wrapper  = styled.div`
 .delivery-alert h3{
     font-weight: 500;
     text-align: center;
+}
+
+.empty-cart{
+    color: white;
+    height: calc(100vh - 90.55px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2{
+        color: #2D2D2D;
+        font-weight: 400;
+        font-size: 25px;
+        text-align: center;
+    }
+    .empty-btn{  
+        margin-top: 20px; 
+        text-decoration: none;
+        text-transform: capitalize;
+        background-color: #DB6B97;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+    }
+    .empyt-btn-container{
+        display: flex;
+        justify-content: center;
+    }
 }
 
 @media screen and (max-width:767px){

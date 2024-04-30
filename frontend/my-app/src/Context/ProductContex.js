@@ -16,7 +16,7 @@ const ProductContex = ({children}) => {
   const productfetching = async()=>{
     try {
       dispatch({type:Loading});
-      const data = await axios.get("http://localhost:5000/api/v1/product");
+      const data = await axios.get("http://localhost:5000/api/v1/product",{withCredentials:true});
       dispatch({type:ProductFetching,payload:data.data});
     } catch (error) {
       dispatch({type:ProductError,payload:error.response});
@@ -31,7 +31,9 @@ const ProductContex = ({children}) => {
     try{
       dispatch({type:Loading});
       const data = await axios.get(`http://localhost:5000/api/v1/product/${id}`);
-      dispatch({type:SingleProductFetching,payload:data});
+      if(data){
+        dispatch({type:SingleProductFetching,payload:data});
+      }
     }catch(err){
       dispatch({type:ProductError,payload:err.response});
     

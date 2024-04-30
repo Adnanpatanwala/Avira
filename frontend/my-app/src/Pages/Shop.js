@@ -34,11 +34,7 @@ const Shop = () => {
                     product.map((items)=>{
                         return ( 
                             <>
-                            <Item key={items._id} {...items}/> 
-                            <Item key={items._id} {...items}/> 
-                            <Item key={items._id} {...items}/> 
-                            <Item key={items._id} {...items}/> 
-                            <Item key={items._id} {...items}/> 
+                            <Item key={items._id} {...items}/>  
                             </>
                         )
                     })

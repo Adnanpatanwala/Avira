@@ -68,7 +68,6 @@ const Login = async(req,res)=>{
         const {isValid} = existingtoken;
         if(!isValid) throw custError.Unauthenticated('Invalid crendentials');
         CreateCookies({res,user:tokenuser, refreshToken: existingtoken.refreshToken});
-        res.status(StatusCodes.OK).json({user:tokenuser});
     return;
 }
 
@@ -77,7 +76,6 @@ const Login = async(req,res)=>{
     const userToken = {refreshToken:refreshtoken,user:user._id}
     await TokenSchema.create(userToken);
     CreateCookies({res,user:tokenuser,refreshToken:refreshtoken});    
-    res.status(StatusCodes.OK).json(tokenuser);
 }
 
 const logout = async(req,res)=>{ 

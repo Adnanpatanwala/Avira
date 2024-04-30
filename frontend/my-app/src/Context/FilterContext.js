@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer, useState } fro
 import {reducer} from "../Reducer/FilterReducer";
 import {useGlobalProductContex} from '../Context/ProductContex';
 import {UPDATE_FILTER,LOAD_PRODUCTS,FILTER_PRODUCTS} from "../actions";
+import axios from 'axios';
 const initialstate = {
   filterproduct:[],
   all_products:[],
@@ -24,8 +25,20 @@ const FilterContext = ({children}) => {
     dispatch({type:LOAD_PRODUCTS,payload:product});
   },[product])
   
-  const applyFilter = ()=>{
-    dispatch({type:FILTER_PRODUCTS,payload:state.all_products});
+  const applyFilter = async()=>{
+    const {min_price,max_price,...newObjects} = state.filter;
+    try {
+      const data = await axios.post('http://localhost:5000/api/v1/product/filter',{newObjects},{
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+      if(data){
+        console.log(data);
+        // dispatch({type:FILTER_PRODUCTS,payload:data});
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 

@@ -9,3 +9,4 @@ export const LOAD_PRODUCTS =  "LOAD_PRODUCTS";
 export const FILTER_PRODUCTS =  "FILTER_PRODUCTS";  
 export const add_to_WishList =  "add_to_WishList";  
 export const add_to_Cart_to_WishList =  "add_to_Cart_to_WishList";  
+export const  add_address =  "add_address";  

@@ -7,7 +7,8 @@ const { StatusCodes } = require('http-status-codes');
 const authenticate = async(req,res,next)=>{
     
     try {
-        const {refreshToken,accessToken} = req.signedCookies;
+        const {refreshToken,accessToken} = req.cookies;
+        
          
         if(accessToken){
             const payload = VerifyToken(accessToken);

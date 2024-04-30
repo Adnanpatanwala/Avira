@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { StatusCodes } = require('http-status-codes');
 
 const createJwt = (payload)=>{
     return  jwt.sign(payload,process.env.JWT_SECRET);
@@ -25,6 +26,7 @@ const CreateCookies =({res,user,refreshToken})=>{
         secure:process.env.NODE_ENV=='production',
         httpOnly:true,
         expires: new Date(Date.now()+longer),
-    })
+    }) 
+    res.status(StatusCodes.OK).json({user,accessToken:accessToken,refreshToken:refreshTokens});
 }
 module.exports = {createJwt,VerifyToken,CreateCookies}

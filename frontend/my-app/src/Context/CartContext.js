@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { createContext } from 'react'
-import {ADD_TO_CART,CALCULATE_ITEMS,add_to_WishList,add_to_Cart_to_WishList} from "../actions";
+import {ADD_TO_CART,CALCULATE_ITEMS,add_to_WishList,add_to_Cart_to_WishList,add_address} from "../actions";
 import {reducer} from "../Reducer/CartReducer"
 const cartContextProvider = createContext();
 
@@ -9,6 +9,7 @@ cart:[],
 totalItems:0,
 totalAmount:0,
 shippingAmount:0,
+address:"",
 wishlist:[],
 }
 const CartContext  = ({children}) => {
@@ -25,6 +26,10 @@ const CartContext  = ({children}) => {
       const addToCartFromWishList = () =>{
           dispatch({type:add_to_Cart_to_WishList})
       }
+
+      const addAddress = (data) =>{
+        dispatch({type:add_address,payload:data})
+      }
      
       
     
@@ -37,7 +42,8 @@ const CartContext  = ({children}) => {
       ...state,
       addToCart, 
       addTowishlist,
-      addToCartFromWishList
+      addToCartFromWishList,
+      addAddress
     }}>
         {children}
     </cartContextProvider.Provider>

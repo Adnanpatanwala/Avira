@@ -1,10 +1,13 @@
 import React, { createContext, useContext,useState } from 'react'
 import axios from 'axios' 
+import { useCookies } from 'react-cookie';
  
 const AuthenticationContext = createContext();
 
   const AuthContext = ({children}) => {
 
+    const [cookies, setCookie, removeCookie] = useCookies();
+  
 
      const register = async(data)=>{
       try {
@@ -36,10 +39,16 @@ const AuthenticationContext = createContext();
 
 
 
+
+
   return ( 
     <AuthenticationContext.Provider value={{
       register,
-      verifyOTP
+      verifyOTP,
+      cookies,
+      setCookie,
+      removeCookie
+
     }}>
         {children}
     </AuthenticationContext.Provider>

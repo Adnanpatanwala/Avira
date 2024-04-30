@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { FaArrowRight } from "react-icons/fa";
+ 
+ 
 
 
 const PriceContainer = ({totalItems,totalAmount}) => {
   return (
     <Wrapper>
-
-     
 
         <div className="heading-price">
             <h3>PRICE DETAILS ( {totalItems} ITEMS )</h3>
@@ -32,17 +31,14 @@ const PriceContainer = ({totalItems,totalAmount}) => {
             </div>
         </div>
 
-        <div className="order-btn">
-            <button>Place Order <FaArrowRight /></button>
-        </div>
+ 
 
     </Wrapper>
   )
 }
 
 export default PriceContainer
-const Wrapper = styled.div`
-margin-top: 50px;
+const Wrapper = styled.div` 
 .heading-price{
     h3{
         font-weight: 500;
@@ -65,19 +61,7 @@ margin-top: 50px;
 .calculation:nth-child(4).right-cl h4{
     color: green;
 }
-.order-btn button{
-    color: white;
-    width: 100%;
-    background-color: #2D2D2D;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    font-weight: 400;
-    border-radius: 8px;
-    padding: 6px 0px;
-    gap: 10px;
-    font-size: 16px;
-}
+ 
 
 @media screen and (max-width:767px) {
     margin-top: 10px;   

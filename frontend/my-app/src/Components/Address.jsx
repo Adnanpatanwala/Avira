@@ -7,7 +7,7 @@ const Address = () => {
   const radioRef = useRef(null);
 
   const handleDivClick = () => {
-    radioRef.current.click();
+    radioRef.current.click(); 
   };
 
    
