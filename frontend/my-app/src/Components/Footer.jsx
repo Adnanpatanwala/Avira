@@ -5,6 +5,7 @@ import { CiFacebook } from "react-icons/ci";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -17,7 +18,10 @@ const Footer = () => {
   <footer class="footer">
   	 <div class="footer-container">
         <div className="header-footer">
-            <img src={Logo} alt="" />
+            <div className="logo">
+                {/* <img src={Logo} alt="" /> */}
+                <NavLink to='/' className='logo-inside'>Fatema's store</NavLink>
+            </div>
             <div className="newsletter">
                 <label className='newsletter-label' >Subscribe to Newsletter : </label>
                 <input type="text" placeholder='Enter your email'/>
@@ -194,9 +198,23 @@ ul{
 	color: #2D2D2D;
 	background-color: #ffffff;
 }
-
+.logo-inside{ 
+        text-decoration: none;
+        color: #DB6B97; 
+        font-size: 25px;
+        font-weight: 500;   
+        font-family: "Cedarville Cursive", cursive;
+        font-style: normal;
+        border: 1px solid #DB6B97;
+        border-radius: 20px;
+        padding: 2px 20px;
+        outline: none;
+    }
 /*responsive*/
 @media(max-width: 767px){
+    .logo-inside{
+        font-size: 18px;
+    }
     .header-footer{
       flex-direction: column;
       label{

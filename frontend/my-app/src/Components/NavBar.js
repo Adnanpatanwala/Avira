@@ -28,7 +28,8 @@ const NavBar = () => {
     <Wrapper> 
         <nav className='navbar'>
             <div className="logo">
-                <NavLink to='/'><img src={Logo} alt="" /></NavLink>
+                <NavLink to='/' className='logo-inside'>Fatema's Store</NavLink>
+                 
             </div>
 
             <div className="links">
@@ -78,7 +79,8 @@ const NavBar = () => {
             <div className="sidebar-header">
 
             <div className="logo">
-                <img src={Logo} alt="" />
+                {/* <img src={Logo} alt="" /> */}
+                <NavLink to='/' className='logo-inside'>Fatema's store</NavLink>
             </div>
                 <button className='close-sidebar' onClick={()=>setOpenSidebar(false)}><MdOutlineClose />close</button>
             </div>
@@ -105,11 +107,23 @@ left: 0px;
 top: 0px;
 background-color: white;
 z-index: 5;
+.logo-inside{ 
+        text-decoration: none;
+        color: #DB6B97; 
+        font-size: 25px;
+        font-weight: 500;   
+        font-family: "Cedarville Cursive", cursive;
+        font-style: normal;
+        border: 1px solid #DB6B97;
+        border-radius: 20px;
+        padding: 2px 20px;
+        outline: none;
+    }
  .navbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 50px; 
+    padding: 20px 50px; 
     box-shadow: 0px 0px 2px gray;
     position: relative;
  }
@@ -179,8 +193,10 @@ z-index: 5;
 
     .logo{ 
         margin: 0px;
-        width: 80px;
+        /* width: 80px;  */
+        
     } 
+ 
     .sidebar-header{
         display: flex;
         justify-content: space-between;
@@ -273,7 +289,11 @@ z-index: 5;
         padding: 5px 10px;
     }
     .logo{
-        width: 70px;
+        /* width: 70px; */
+        margin: 10px;
+    }
+    .logo-inside{
+        font-size: 18px;
     }
     .logo img{
         width: 100%;
