@@ -21,7 +21,10 @@ const OrderSummary = () => {
                 </div>
                 
                 <div className="listOfitems"> 
+                {
                     <Address/>   
+
+                }
                 </div>
             </div>
             <div className="leftside-address"> 

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const {cart,totalAmount,totalItems} = useCartContext();
-    const item =  {Im,size:"small",color:"red",desp:"hello kem cho",title:"red tshirt",price:200,amount:1};
+    // const item =  {Im,size:"small",color:"red",desp:"hello kem cho",title:"red tshirt",price:200,amount:1};
     const navigate  = useNavigate();
 
 if(cart.length<1){

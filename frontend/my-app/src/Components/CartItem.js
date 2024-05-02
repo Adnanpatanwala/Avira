@@ -12,7 +12,7 @@ const CartItem = (item) => {
     <Wrapper >
         <div className="items-container">
             <div className="leftside-item">
-                <img src={Img} alt="" />
+                <img src={image} alt="" />
             </div>
             <div className="rightside-item">
                 <h4>{title}</h4>

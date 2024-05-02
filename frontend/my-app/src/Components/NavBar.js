@@ -29,7 +29,7 @@ const NavBar = () => {
         <nav className='navbar'>
             <div className="logo">
                 <NavLink to='/' className='logo-inside'>Fatema's Store</NavLink>
-                 
+                 <div className="circle-logo"></div>
             </div>
 
             <div className="links">
@@ -107,17 +107,36 @@ left: 0px;
 top: 0px;
 background-color: white;
 z-index: 5;
+ 
 .logo-inside{ 
+        background-color: #DB6B97;
         text-decoration: none;
-        color: #DB6B97; 
+        color: white; 
         font-size: 25px;
         font-weight: 500;   
         font-family: "Cedarville Cursive", cursive;
         font-style: normal;
-        border: 1px solid #DB6B97;
-        border-radius: 20px;
-        padding: 2px 20px;
-        outline: none;
+        border: 1px solid #DB6B97;  
+        border-radius: 15px;
+        border-bottom-right-radius: 30px;
+        border-bottom-left-radius: 30px; 
+        padding: 0px 30px; 
+        outline: none; 
+        position: relative;
+    }
+    .logo-inside::before,.logo-inside::after{
+        content: '';
+        position: absolute;
+        width:10px ;
+        height: 10px;
+        border-radius: 50%;
+        top: 10px;
+        left: 10px;
+        background-color: white;
+    } 
+    .logo-inside::after{
+        left: auto;
+        right: 10px !important;
     }
  .navbar{
     display: flex;
@@ -191,11 +210,7 @@ z-index: 5;
     height: 100%;
     z-index: 2;
 
-    .logo{ 
-        margin: 0px;
-        /* width: 80px;  */
-        
-    } 
+   
  
     .sidebar-header{
         display: flex;

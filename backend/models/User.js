@@ -83,7 +83,8 @@ const UserSchema = new mongoose.Schema({
     },
     passwordTokenExpireDate:{
         type:Date,
-    }
+    },
+     
 
 },{timestamps:true})
 UserSchema.pre('save',async function(){
