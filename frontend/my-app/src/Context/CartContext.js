@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { createContext } from 'react'
+import axios from 'axios' 
 import {ADD_TO_CART,CALCULATE_ITEMS,add_to_WishList,add_to_Cart_to_WishList,add_address} from "../actions";
 import {reducer} from "../Reducer/CartReducer"
 const cartContextProvider = createContext();
@@ -30,10 +31,49 @@ const CartContext  = ({children}) => {
       const addAddress = (data) =>{
         dispatch({type:add_address,payload:data})
       }
-     
+
+   
+      const handlePayment = async() =>{
       
-    
-    useEffect(()=>{ 
+        console.log(state.cart);
+         let arr = [
+          {
+            "name":"hello", 
+            "amount":2,  
+            "id":"65dcf88bc600e8914b638ab1"
+        },
+        {
+          "name":"hello", 
+          "amount":2,  
+          "id":"65dcf88bc600e8914b638ab1"
+      }
+         ];
+        //  state.cart.map((item)=>{
+        //   const obj = {
+        //     name:item.title,
+        //     id:item.id,
+        //     amount:item.amount
+        //   }
+        //   return arr.push(obj);
+        //  }) 
+          
+         try { 
+           const data = await axios.post('http://localhost:5000/api/v1/order',{
+             items:arr,
+             tax:50,
+             shippingfess:50
+            },{ 
+              headers: {
+              'Content-Type': 'application/json',
+            }})
+          console.log(data);
+        } catch (error) {
+         console.log(error);
+        }
+      }
+          
+          
+          useEffect(()=>{ 
       dispatch({type:CALCULATE_ITEMS});
     },[state.cart])
 
@@ -43,7 +83,8 @@ const CartContext  = ({children}) => {
       addToCart, 
       addTowishlist,
       addToCartFromWishList,
-      addAddress
+      addAddress,
+      handlePayment
     }}>
         {children}
     </cartContextProvider.Provider>

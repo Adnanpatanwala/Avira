@@ -8,8 +8,12 @@ import { useCartContext } from '../Context/CartContext'
 import PriceContainer from '../Components/PriceContainer'
 
 const OrderSummary = () => {
-    const {totalAmount, totalItems,addAddress} = useCartContext(); 
+    const {totalAmount, totalItems,addAddress,handlePayment} = useCartContext(); 
     const item = {totalItems,totalAmount};
+
+     
+
+
   return (  
     <Wrapper> 
         <div className="address-container">
@@ -32,7 +36,7 @@ const OrderSummary = () => {
                 <PriceContainer {...item}/>
                 </div>
             <div className="checkout-btn-container">
-            <button className='checkout-btn'>Proceed to Payment</button>
+            <button className='checkout-btn' onClick={()=>handlePayment()}>Proceed to Payment</button>
         </div>
             </div>
              

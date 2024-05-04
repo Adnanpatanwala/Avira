@@ -179,7 +179,6 @@ color: white;
         align-items: center;
         width: auto;
         font-size: 14px !important; 
-        justify-content: right;
     }
     .product-bottom-details{
         display: block; 
