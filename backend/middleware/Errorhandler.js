@@ -8,7 +8,7 @@ const  Errorhandler = async(err,req,res,next)=>{
 
     if (err.name === 'ValidationError') {
         customerror.msg = Object.values(err.errors).map((item)=>item.message).join(',');  
-          customerror.statusCode = 400;
+          customerror.statuscode = 400;
       }
 
       if(err.code && err.code===11000){
@@ -17,8 +17,8 @@ const  Errorhandler = async(err,req,res,next)=>{
       }
 
       if (err.name === 'CastError') {
-        customError.msg = `No item found with id : ${err.value}`;
-        customError.statusCode = 404;
+        customerror.msg = `No item found with id : ${err.value}`;
+        customerror.statuscode = 404;
       }
     
     

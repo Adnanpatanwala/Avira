@@ -1,92 +1,129 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { createContext } from 'react'
-import axios from 'axios' 
-import {ADD_TO_CART,CALCULATE_ITEMS,add_to_WishList,add_to_Cart_to_WishList,add_address} from "../actions";
-import {reducer} from "../Reducer/CartReducer"
+import axios from 'axios'
+import { ADD_TO_CART, CALCULATE_ITEMS, add_to_WishList, add_to_Cart_to_WishList, add_address } from "../actions";
+import { reducer } from "../Reducer/CartReducer"
 const cartContextProvider = createContext();
 
 const initialState = {
-cart:[],
-totalItems:0,
-totalAmount:0,
-shippingAmount:0,
-address:"",
-wishlist:[],
+  cart: [],
+  totalItems: 0,
+  totalAmount: 0,
+  shippingAmount: 0,
+  address: "",
+  wishlist: [],
 }
-const CartContext  = ({children}) => {
-    const [state,dispatch] = useReducer(reducer,initialState);
+const CartContext = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    const addToCart = (data) =>{
-        dispatch({type:ADD_TO_CART,payload:data});
-      } 
- 
-      const addTowishlist = (data)=>{
-        dispatch({type:add_to_WishList,payload:data})
-      }
+  const addToCart = (data) => {
+    dispatch({ type: ADD_TO_CART, payload: data });
+  }
 
-      const addToCartFromWishList = () =>{
-          dispatch({type:add_to_Cart_to_WishList})
-      }
+  const addTowishlist = (data) => {
+    dispatch({ type: add_to_WishList, payload: data })
+  }
 
-      const addAddress = (data) =>{
-        dispatch({type:add_address,payload:data})
-      }
+  const addToCartFromWishList = () => {
+    dispatch({ type: add_to_Cart_to_WishList })
+  }
 
-   
-      const handlePayment = async() =>{
-      
-        console.log(state.cart);
-         let arr = [
-          {
-            "name":"hello", 
-            "amount":2,  
-            "id":"65dcf88bc600e8914b638ab1"
-        },
-        {
-          "name":"hello", 
-          "amount":2,  
-          "id":"65dcf88bc600e8914b638ab1"
+  const addAddress = (data) => {
+    dispatch({ type: add_address, payload: data })
+  }
+
+
+  const handlePayment = async () => {
+
+
+    const newarr = state.cart.map((item) => {
+      return {
+        name: item.title,
+        id: item.mainId,
+        amount: item.amount
       }
-         ];
-        //  state.cart.map((item)=>{
-        //   const obj = {
-        //     name:item.title,
-        //     id:item.id,
-        //     amount:item.amount
-        //   }
-        //   return arr.push(obj);
-        //  }) 
-          
-         try { 
-           const data = await axios.post('http://localhost:5000/api/v1/order',{
-             items:arr,
-             tax:50,
-             shippingfess:50
-            },{ 
-              headers: {
-              'Content-Type': 'application/json',
-            }})
-          console.log(data);
-        } catch (error) {
-         console.log(error);
+    })
+
+    try {
+      const data = await axios.post('http://localhost:5000/api/v1/order', {
+        items: newarr,
+        tax: 50,
+        shippingfess: 50
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
         }
-      }
-          
-          
-          useEffect(()=>{ 
-      dispatch({type:CALCULATE_ITEMS});
-    },[state.cart])
+      })
+      
+      console.log(data);
 
-  return ( 
+      const options = {
+
+        key: process.env.REACT_APP_RAZORPAY_KEYID,
+        amount: data?.data?.order.total,
+        currency: "INR",
+        name: "",
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: data.id,
+        handler: async function (response) {
+          console.log(response);                                       
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);    
+
+          const resp = await axios.post("http://localhost:5000/api/v1/order/validate",{...response},{
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+ 
+        },
+        prefill: {
+          name: "adnan",
+          email: "youremail@example.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#2D2D2D",
+        },
+      };
+
+
+      let rzp1 = new window.Razorpay(options);
+
+      rzp1.on("payment.failed", function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+      });
+
+      rzp1.open();
+ 
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  useEffect(() => {
+    dispatch({ type: CALCULATE_ITEMS });
+  }, [state.cart])
+
+  return (
     <cartContextProvider.Provider value={{
       ...state,
-      addToCart, 
+      addToCart,
       addTowishlist,
       addToCartFromWishList,
       addAddress,
       handlePayment
     }}>
-        {children}
+      {children}
     </cartContextProvider.Provider>
   )
 }
@@ -94,6 +131,6 @@ const CartContext  = ({children}) => {
 
 export default CartContext;
 
-export const useCartContext=()=>{
-    return useContext(cartContextProvider)
+export const useCartContext = () => {
+  return useContext(cartContextProvider)
 }
