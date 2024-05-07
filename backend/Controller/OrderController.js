@@ -6,7 +6,7 @@ const { StatusCodes } = require('http-status-codes');
 const Razorpay = require('razorpay');
 
 const createOrder = async (req, res) => {
-     
+   
     const { items: cartItem, tax, shippingfess } = req.body;
     if (!cartItem || cartItem.length < 1) {
         throw new custerror.BadRequestError("No item is Provided in cart");
@@ -45,12 +45,11 @@ const createOrder = async (req, res) => {
             currency: "INR", 
           };
 
-           instance.orders.create(options, function(err, order) {
-            if(err){
-                console.log(err);
-            }
-            console.log(order);
-    });
+        const OrderCreated = await instance.orders.create(options);
+        
+        if(!OrderCreated){
+            throw new custerror.BadRequestError("order not created")
+        }
 
  
 
@@ -64,7 +63,7 @@ const createOrder = async (req, res) => {
             user: '65dcf754631dd2a94ca505b1'
         })
         res.status(StatusCodes.CREATED).json({ order });
-     
+   
 
 
 

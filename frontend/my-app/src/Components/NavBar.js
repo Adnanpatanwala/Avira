@@ -335,5 +335,19 @@ z-index: 5;
     .mobile-login{
         display: block;
     }
+    .logo-inside::after,.logo-inside::before{
+        display: none;
+
+    }
+    .logo-inside{
+        background: none;
+        border: none;
+        color: #DB6B97;
+        font-size: 15px;
+        padding: 0px;
+    }
+    .user-login{
+        display: none;
+    }
  }
 `

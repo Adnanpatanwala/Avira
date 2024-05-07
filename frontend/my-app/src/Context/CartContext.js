@@ -33,7 +33,7 @@ const CartContext = ({ children }) => {
   }
 
 
-  const handlePayment = async () => {
+  const handlePayment = async (e) => {
 
 
     const newarr = state.cart.map((item) => {
@@ -54,9 +54,8 @@ const CartContext = ({ children }) => {
           'Content-Type': 'application/json',
         }
       })
-      
-      console.log(data);
-
+       
+if(data){
       const options = {
 
         key: process.env.REACT_APP_RAZORPAY_KEYID,
@@ -66,19 +65,17 @@ const CartContext = ({ children }) => {
         description: "Test Transaction",
         image: "https://example.com/your_logo",
         order_id: data.id,
-        handler: async function (response) {
-          console.log(response);                                       
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);    
 
+        handler: async function (response) {
+ 
+          console.log(response);
           const resp = await axios.post("http://localhost:5000/api/v1/order/validate",{...response},{
             headers: {
               'Content-Type': 'application/json',
             }
           })
  
-        },
+        }, 
         prefill: {
           name: "adnan",
           email: "youremail@example.com",
@@ -90,7 +87,7 @@ const CartContext = ({ children }) => {
       };
 
 
-      let rzp1 = new window.Razorpay(options);
+      const rzp1 = new window.Razorpay(options);
 
       rzp1.on("payment.failed", function (response) {
         alert(response.error.code);
@@ -103,7 +100,8 @@ const CartContext = ({ children }) => {
       });
 
       rzp1.open();
- 
+      e.preventDefault();
+    }
     } catch (error) {
       console.log(error);
     }

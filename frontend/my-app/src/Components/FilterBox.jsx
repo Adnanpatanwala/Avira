@@ -4,10 +4,12 @@ import { FaCheck } from "react-icons/fa6";
 import { useFilterContext } from '../Context/FilterContext';
 import { FaFilter } from "react-icons/fa6";  
 import {uniqueValues} from "../utils/uniqueValue";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const FilterBox = () => {
+
+const FilterBox = ({setFilterOpen}) => {
     const {updateFilter,filter,filterproduct:product,applyFilter} = useFilterContext();
-    const [filterOpen,setFilterOpen] = useState(false)
+    
     const {price,color,size,category,max_price,min_price} = filter;
     const sizeArray = uniqueValues(product,"size");
     const colorArray = uniqueValues(product,"colors");
@@ -17,6 +19,7 @@ const FilterBox = () => {
          <div className="left-shop">
                 <div className="header-shop">
                     <h3>Filter</h3>
+                    <button onClick={()=>setFilterOpen(false)}><IoIosCloseCircleOutline /></button>
                 </div>
                 <div className="category">
                 <label htmlFor="select">Select Category : </label> 
@@ -103,7 +106,7 @@ const FilterBox = () => {
                     </div>
                 </div>
                 <div className="apply-filter">
-                    <button onClick={applyFilter}>Apply</button>
+                    <button onClick={()=>{applyFilter();setFilterOpen(false);}} >Apply</button>
                 </div>
             </div>
     </Wrapper>
@@ -123,6 +126,8 @@ const Wrapper = styled.div`
     left:0px; 
     margin: 50px 0px;
     box-sizing: border-box;
+    background-color: white;
+    z-index: 2;
  
 label{
     display: block;
@@ -199,6 +204,16 @@ label{
         accent-color: #DB6B97;
         cursor: pointer;
         background-color: white;
+    }
+ }
+
+ @media screen and (max-width:767px) {
+    .header-shop{
+        display: flex;
+        justify-content: space-between;
+        button{
+            font-size: 20px;
+        }
     }
  }
 

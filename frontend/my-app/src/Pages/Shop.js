@@ -4,13 +4,14 @@ import Item from '../Components/Item';
 import Loading from '../Components/Loading';
 import { useFilterContext } from '../Context/FilterContext';
 import { useGlobalProductContex } from '../Context/ProductContex';
- 
+import {FaFilter} from "react-icons/fa"
 import Filtercontainer from "../Components/FilterBox"
 
 
 const Shop = () => {
     const {isloading} = useGlobalProductContex();
     const {filterproduct:product} = useFilterContext();
+    const [filterOpen,setFilterOpen] = useState(false);
     
     if(isloading){
         return( 
@@ -22,13 +23,17 @@ const Shop = () => {
   return ( 
     <Wrapper className="global-container">
         <div className="shop-container">
-            <div className='left-cont'>
-                <Filtercontainer/>
-            </div>
-                {/* <div className="header-shop-heading">
+             
+             
+              <div className={filterOpen ?`left-cont filter-none`:`left-cont`}>
+                <Filtercontainer setFilterOpen={setFilterOpen}/>
+                </div>
+
+            
+                <div className="header-shop-heading">
                     <h4>Products</h4>
-                     <button ><FaFilter /></button>
-                </div>  */}
+                     <button onClick={()=>setFilterOpen(true)}><FaFilter /></button>
+                </div> 
             <div className="right-shop">
                   {
                     product.map((items)=>{
@@ -125,6 +130,7 @@ color: white;
  }
  .header-shop-heading{
     max-height: 30px;
+    display: none;
  }
 
  @media screen and (max-width:767px) {
@@ -134,6 +140,16 @@ color: white;
     .shop-container{
          display: block;
          box-sizing: border-box;
+    }
+    .left-cont::before{
+        content: '';
+        left: 0px;
+        top: 0px;
+        position: absolute;
+        width: 100%;
+        height: 100%; 
+        background-color: black;
+        opacity: 0.5;
     }
     .left-cont{
         position: fixed;
@@ -146,6 +162,9 @@ color: white;
         left: 50%;
         transform: translate(-50%,-50%);
         display: none;
+    }
+    .filter-none{
+        display: flex !important;
     }
     .right-shop{
         padding: 10px; 
@@ -192,6 +211,21 @@ color: white;
     } 
     .product-tumb img{
         border-radius: 5px;
+    }
+    .header-shop-heading{
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 5px;
+        color: #2D2D2D;
+        h4{
+            font-weight: 400;
+        }
+        button{
+            border: 1px solid #2D2D2D;
+            display: flex;
+            padding: 5px;
+            border-radius: 5px;
+        }
     }
  }
  
