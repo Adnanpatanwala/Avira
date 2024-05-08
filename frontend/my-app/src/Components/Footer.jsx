@@ -210,8 +210,46 @@ ul{
         padding: 2px 20px;
         outline: none;
     }
-/*responsive*/
-@media(max-width: 767px){
+    /*responsive*/
+    
+    
+ @media screen and (min-width:767px) and (max-width:991px) {
+    .header-footer{ 
+        input {
+            font-size: 12px;
+        }
+        .logo-inside{
+            font-size: 20px;
+        }
+        button{
+            padding: 5px 10px ;
+        }
+        .newsletter-label{
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+    }
+    .row{
+        .footer-col h4{
+            font-size: 14px;
+            margin-bottom: 25px;
+        } 
+        .footer-col ul li a{
+            font-size: 12px;
+        }
+        .social-links a{
+            font-size: 18px;
+            padding: 8px;
+        }
+        .social-links{
+            flex-wrap: wrap;
+        }
+    }
+ }
+    
+    
+  
+@media screen and (max-width: 767px){
     .logo-inside{
         font-size: 18px;
     }
@@ -257,9 +295,11 @@ ul{
     }
 }
  
+ 
 
-
+   
 }
+
 
  
 

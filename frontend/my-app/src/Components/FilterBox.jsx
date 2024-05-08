@@ -216,5 +216,8 @@ label{
         }
     }
  }
+ @media screen and (min-width:767px) and (max-width:991px) {
+    width: 300px;
+}
 
 `

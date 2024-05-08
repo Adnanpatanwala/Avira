@@ -60,7 +60,7 @@ const NavBar = () => {
                     <NavLink to='/wishlist'><img src={WishList} alt="" /></NavLink>
                     {wishlist.length>0 && <div className="wishlist-count">{wishlist.length}</div>}
                 </div>
-                <div>
+                <div className='mobile-login-div'>
                 <button className="mobile-login"><FaUserCircle /></button>
                 </div>
                 <div className="hamburger">
@@ -177,8 +177,11 @@ z-index: 5;
  } 
  .wishlist-btn button,.search-btn button{
     background: none;
-    border: none;
+    border: none; 
 
+ }
+ .search-btn button,.cart-btn a,.wishlist-btn a,.login a {
+    display: flex;
  }
  .cart-btn,.wishlist-btn{
     position: relative;
@@ -251,6 +254,7 @@ z-index: 5;
 
  }
 
+ 
   
 
   .hamburger{
@@ -258,8 +262,10 @@ z-index: 5;
   }
 
   .mobile-login{ 
-    color: #DB6B97;
-    display: none;
+    color: #DB6B97 
+  }
+  .mobile-login-div{
+    display: none !important;
   }
   
   .user-login{
@@ -275,6 +281,13 @@ z-index: 5;
     background-color: #DB6B97;
      
   }
+  .hamburger button{
+        font-size: 22px;
+        color: #DB6B97;
+        display: flex;
+        align-items: center;
+        background:none; 
+    }
   
 
   @media screen and (min-width:767px) and (max-width:991px) {
@@ -285,12 +298,26 @@ z-index: 5;
         gap: 25px;
     }
     .navbar{ 
-        padding: 10px 25px
+        padding: 15px 25px
     } 
     .right-corner > *{
         display : flex;
         align-items: center;
+    } 
+    .logo-inside{
+        padding: 5px 25px;
+        font-size: 14px; 
     }
+     .links{
+        display: none;
+     }
+       .login>* {
+        font-size: 12px;
+     }
+     .logo-inside::before, .logo-inside::after{
+        width: 7px;
+        height: 7px;
+     }
   }
   
   @media screen and (max-width:767px){
@@ -318,13 +345,7 @@ z-index: 5;
     .right-corner{
         gap: 20px;
     }
-    .hamburger button{
-        font-size: 22px;
-        color: #DB6B97;
-        display: flex;
-        align-items: center;
-        background:none; 
-    }
+    
     .mobile-login > *{
         width: 22px;
         height: 22px;

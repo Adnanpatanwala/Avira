@@ -133,7 +133,14 @@ color: white;
     display: none;
  }
 
- @media screen and (max-width:767px) {
+
+ @media screen and (min-width:767px) and (max-width:991px) {
+    .right-shop{
+        grid-template-columns: 50% 50% 50% ;
+    }
+ }
+
+ @media screen and (max-width:991px) {
     .left-shop{
         background-color: white;
     }
