@@ -258,6 +258,21 @@ const Wrapper = styled.div`
   }
  
 
+  @media screen and (min-width:766px) and (max-width:991px){
+    .single-product-container{
+      grid-template-columns: 50% 50%;
+    }
+    .left-prdDetail{
+      width: auto;
+
+    }
+    .maincontainer-img{
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
   @media screen and (max-width:767px){
     .single-product-container{
       display: block;
@@ -273,7 +288,7 @@ const Wrapper = styled.div`
       margin: 0px;
     }
     .maincontainer-img{ 
-      width: 100%;
+      width: 100%; 
       height: 250px;
       margin: auto;
     }
@@ -316,6 +331,7 @@ const Wrapper = styled.div`
        .qtybtn{
         width: 100px;
        }
+       
   }
 
 

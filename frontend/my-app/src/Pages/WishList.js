@@ -6,7 +6,7 @@ import {useCartContext} from '../Context/CartContext'
 const WishList = () => {
    const {wishlist,addToCartFromWishList} = useCartContext();
   return (
-    <Wrapper> 
+    <Wrapper > 
         {
           wishlist.length<=0?
           <div className='noproduct'>
@@ -36,9 +36,11 @@ const WishList = () => {
 
 export default WishList;
 const Wrapper = styled.div`
-.noproduct{ 
-  /* margin-top: ; */
-  margin: auto;
+
+min-height: calc(100vh - 95px);
+.noproduct{    
+  margin-top: 10%; 
+  /* margin: auto; */
 }
  .noproduct h2{
   font-size: 18px;

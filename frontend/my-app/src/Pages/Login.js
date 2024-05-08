@@ -182,12 +182,21 @@ z-index: 1;
     cursor: pointer;
 }
 
+@media screen and (min-width:766px) and (max-width:991px) {
+    .bottom-img img{
+        width: 500px;
+    }
+    .login-center-container{
+        padding: 25px;
+    }
+}
+
 @media screen and (max-width:767px) {
     .login-container{
         display: block;
     }
     .bottom-img img{
-        width: 200px !important;
+        width: 400px !important;
     }
     .bottom-img{
         right: 0px;

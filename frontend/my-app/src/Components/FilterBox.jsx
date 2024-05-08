@@ -207,7 +207,16 @@ label{
     }
  }
 
- @media screen and (max-width:767px) {
+ @media screen and (min-width:992px) and (max-width:1199px) {
+    width: 100%;
+     
+ }
+ 
+ @media screen and (min-width:767px) and (max-width:991px) {
+    width: 300px;
+}
+
+@media screen and (max-width:767px) {
     .header-shop{
         display: flex;
         justify-content: space-between;
@@ -216,8 +225,5 @@ label{
         }
     }
  }
- @media screen and (min-width:767px) and (max-width:991px) {
-    width: 300px;
-}
 
 `

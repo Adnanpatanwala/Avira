@@ -205,5 +205,78 @@ font-size: 14px;
   margin-top: 10px;
   text-align: center;
 }
+
+
+@media screen and (min-width:992px) and (max-width:1199px){
+  .bottom-img img{
+    width: 600px;
+  }
+}
+
+@media screen and (min-width:766px) and (max-width:991px) {
+    .bottom-img img{
+        width: 450px;
+    }
+    .login-center-container{
+        padding: 25px;
+    }
+    .register-center-container{
+      padding: 20px;
+    }
+}
+ 
+
+@media screen and (max-width:767px) {
+    .login-container{
+        display: block;
+    }
+    .bottom-img img{
+        width: 200px !important;
+    }
+    .bottom-img{
+        right: 0px;
+    }
+    .left-container-login img{
+        margin-left: 10px;
+        margin-top: 15px;
+        width: 80px;
+    }
+    .right-container-login{
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 85%;
+        max-width: 400px;
+        box-sizing: border-box;
+    }
+    .login-center-container input{
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .forgot-container{
+        display: block;
+
+    }
+    .forgotpassword{  
+        display: block;
+        text-align: right;
+    }
+    .register-container h5,.register{
+        font-size: 12px;
+    }
+    .register-container{
+        gap: 0px;
+        justify-content: space-between;
+    }
+}
+@media screen and (min-width:500px) and (max-width:767px){
+  .bottom-img img{
+        width: 300px !important;
+    }
+}
  
 `

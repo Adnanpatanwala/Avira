@@ -182,6 +182,16 @@ const Wrapper  = styled.div`
     }
 }
 
+@media screen and (min-width:766px) and (max-width:991px){
+    .items-container{
+        gap: 15px;
+    }
+    .leftside-item{
+        width: 100%;
+    }
+}
+
+
 @media screen and (max-width:767px){
     .cart-container{
         display: block;

@@ -133,14 +133,89 @@ color: white;
     display: none;
  }
 
-
- @media screen and (min-width:767px) and (max-width:991px) {
+ @media screen and (min-width:992px) and (max-width:1199px) {
     .right-shop{
-        grid-template-columns: 50% 50% 50% ;
+        grid-template-columns: repeat(auto-fit,minmax(180px,200px));
+    }
+    .product-tumb{
+        height: 200px;
+    }
+    .shop-container{
+        grid-template-columns: 30% 70%;
+    } 
+ 
+ }
+
+
+ @media screen and (min-width:766px) and (max-width:991px) {
+    .right-shop{
+        grid-template-columns: repeat(auto-fit,minmax(150px,200px));
+        justify-content: center;
+    }
+    .product-tumb{
+        height: 170px;
+    }
+    .header-shop-heading{
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 5px;
+        color: #2D2D2D;
+        h4{
+            font-weight: 400;
+        }
+        button{
+            border: 1px solid #2D2D2D;
+            display: flex;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+    .left-cont {
+        display: none;
+    }
+    .filter-none{
+        display: flex !important;
+    }
+    .shop-container{
+        grid-template-columns: auto;
+    }
+    .left-cont::before{
+        content: '';
+        left: 0px;
+        top: 0px;
+        position: absolute;
+        width: 100%;
+        height: 100%; 
+        background-color: black;
+        opacity: 0.5;
+    }
+    .left-cont{
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: none;
+    }
+    .shop-container{
+         display: block;
+         box-sizing: border-box;
+    }
+    .header-shop{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        button{
+            font-size: 20px;
+        }
     }
  }
 
- @media screen and (max-width:991px) {
+ @media screen and (max-width:767px) {
     .left-shop{
         background-color: white;
     }
