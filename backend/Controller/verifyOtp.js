@@ -11,7 +11,7 @@ const sentOtp = (phoneno)=>{
 const recieveOtp = async(req,res)=>{
     const {otp,phoneno} = req.body;
      
-    console.log(otp,phoneno);
+    // console.log(otp,phoneno);
     const verificationChecks = await client.verify.v2.services(process.env.VERIFY_SID).verificationChecks.create({ to:phoneno, code:otp });
     if(verificationChecks.status!=='approved')throw new custError.unauthorized('verification is not valid');
     const data =  await UserSchema.findOne({phoneno});

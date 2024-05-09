@@ -59,6 +59,7 @@ const createOrder = async (req, res) => {
             subtotal,
             tax,
             shippingFee:shippingfess,
+            OrderCreated,
             clientSecret: "paymentIntent.client_secret",
             user: '65dcf754631dd2a94ca505b1'
         })

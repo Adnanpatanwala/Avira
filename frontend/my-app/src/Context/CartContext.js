@@ -43,8 +43,7 @@ const CartContext = ({ children }) => {
         amount: item.amount
       }
     })
-
-    try {
+ 
       const data = await axios.post('http://localhost:5000/api/v1/order', {
         items: newarr,
         tax: 50,
@@ -52,7 +51,8 @@ const CartContext = ({ children }) => {
       }, {
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        withCredentials: true
       })
        
 if(data){
@@ -67,7 +67,6 @@ if(data){
         order_id: data.id,
 
         handler: async function (response) {
- 
           console.log(response);
           const resp = await axios.post("http://localhost:5000/api/v1/order/validate",{...response},{
             headers: {
@@ -102,9 +101,7 @@ if(data){
       rzp1.open();
       e.preventDefault();
     }
-    } catch (error) {
-      console.log(error);
-    }
+    
   }
 
 

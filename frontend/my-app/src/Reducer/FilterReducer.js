@@ -11,13 +11,9 @@ export const reducer = (state,action)=>{
         let max = Math.max(...price);
         return {...state,filterproduct:[...action.payload],all_products:[...action.payload],filter:{...state.filter,max_price:max,min_price:min,price:max}};
     }
-    if(action.type===FILTER_PRODUCTS){
-        const {color,category,size, price} = state.filter;
-        let temp = [...action.payload];
-        if(color!=='All'){
-            temp = temp.filter((item)=>item.colors.find((a)=>a===color));
-        }
-        return {...state,filterproduct:[...temp]};
+    if(action.type===FILTER_PRODUCTS){ 
+         
+        return {...state,filterproduct:[...action.payload.data]};
     }
     throw new Error(`not action of ${action.type} type found`);
 }

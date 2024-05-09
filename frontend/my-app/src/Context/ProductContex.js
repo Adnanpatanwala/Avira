@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react'
 import  {reducer}  from '../Reducer/ProductReducer';
 import axios from 'axios';
 import {ProductFetching,Loading,ProductError,SingleProductFetching} from "../actions";
+ 
 
 const PrdContex = createContext();
 const initialState = {
@@ -13,6 +14,8 @@ const initialState = {
 }
 const ProductContex = ({children}) => {
   const [state,dispatch] = useReducer(reducer,initialState);
+
+
   const productfetching = async()=>{
     try {
       dispatch({type:Loading});
@@ -22,9 +25,10 @@ const ProductContex = ({children}) => {
       dispatch({type:ProductError,payload:error.response});
     }
   }
-  useEffect(()=>{
-    productfetching();
-  },[]);
+
+
+ 
+
 
   const SingleProductFetch= async(id)=>{
      
@@ -45,6 +49,7 @@ const ProductContex = ({children}) => {
     <PrdContex.Provider value={{
         ...state,
         SingleProductFetch,
+        productfetching,
       
     }}>
         {children}

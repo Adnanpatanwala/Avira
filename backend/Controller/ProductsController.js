@@ -55,14 +55,27 @@ const getAllProducts = async (req, res) => {
   if (!data) {
     throw new custError.NotFoundError("No Product Found");
   }
-  console.log(data)
+  // console.log(data)
   res.status(StatusCodes.OK).json(data);
 };
 
 const getFilterProducts = async (req,res)=>{
   const  {color,category,size, price} = req.body.newObjects;
+
+  const query = {};
+  query.price = price;
+  if(category!=='All'){
+      query.category = category;
+  }
+  if(size!=='All'){
+    query.size = {$in:size};
+  }
+  if(color!=='All'){
+    query.colors = {$in:color};
+  }
+  
    
-  const data = await ProductSchema.find({price:price,category:category,colors:{$in:color},size:{$in:size}});
+  const data = await ProductSchema.find(query);
   if(!data){
     throw new custError.NotFoundError("No Product Found");
   }

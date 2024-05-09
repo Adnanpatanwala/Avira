@@ -15,6 +15,7 @@ const Home = () => {
       <div className="grid-container">
 
         <div className="explore">
+          <NavLink to='/shop?category=all'>
         <div>
           <h5>Brands Everyone's Crushing on</h5>
           <div className="items-header">
@@ -23,6 +24,7 @@ const Home = () => {
           </div>
         </div>
           <img className='widerimg' src={Explore} alt="" />
+          </NavLink>
         </div>
 
 

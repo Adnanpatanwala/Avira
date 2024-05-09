@@ -36,7 +36,7 @@ const OrderSummary = () => {
                 <PriceContainer {...item}/>
                 </div>
             <div className="checkout-btn-container">
-            <button className='checkout-btn' onClick={()=>handlePayment()}>Proceed to Payment</button>
+            <button className='checkout-btn' onClick={handlePayment}>Proceed to Payment</button>
         </div>
             </div>
              

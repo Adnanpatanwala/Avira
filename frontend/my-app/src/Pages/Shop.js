@@ -6,12 +6,21 @@ import { useFilterContext } from '../Context/FilterContext';
 import { useGlobalProductContex } from '../Context/ProductContex';
 import {FaFilter} from "react-icons/fa"
 import Filtercontainer from "../Components/FilterBox"
+import {useParams} from 'react-router-dom'
 
 
 const Shop = () => {
-    const {isloading} = useGlobalProductContex();
+    const {isloading,productfetching} = useGlobalProductContex();
     const {filterproduct:product} = useFilterContext();
     const [filterOpen,setFilterOpen] = useState(false);
+    const {category} = useParams();
+
+    // useEffect(()=>{
+    //     if(!category){
+    //         productfetching();
+    //     }
+    // },[])
+
     
     if(isloading){
         return( 
@@ -20,6 +29,18 @@ const Shop = () => {
             </div>
             )
         } 
+        
+    if(product.length<=0){
+        return <div className='backloader'>
+            <h3>
+                No Products Present....
+            </h3>
+        </div>
+    }
+
+
+
+
   return ( 
     <Wrapper className="global-container">
         <div className="shop-container">
@@ -52,6 +73,7 @@ const Shop = () => {
 
 export default Shop;
 const Wrapper = styled.div`
+ 
  
  .inner-container-price input{
     width: 100%;
@@ -132,6 +154,7 @@ color: white;
     max-height: 30px;
     display: none;
  }
+ 
 
  @media screen and (min-width:992px) and (max-width:1199px) {
     .right-shop{
