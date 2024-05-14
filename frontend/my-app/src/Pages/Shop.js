@@ -6,21 +6,21 @@ import { useFilterContext } from '../Context/FilterContext';
 import { useGlobalProductContex } from '../Context/ProductContex';
 import {FaFilter} from "react-icons/fa"
 import Filtercontainer from "../Components/FilterBox"
-import {useParams} from 'react-router-dom'
+import {useParams } from 'react-router-dom'
 
 
 const Shop = () => {
     const {isloading,productfetching} = useGlobalProductContex();
-    const {filterproduct:product} = useFilterContext();
+    const {filterproduct:product ,applyFilter} = useFilterContext();
     const [filterOpen,setFilterOpen] = useState(false);
     const {category} = useParams();
-
-    // useEffect(()=>{
-    //     if(!category){
-    //         productfetching();
-    //     }
-    // },[])
-
+    
+    useEffect(()=>{ 
+        const queryParameters = new URLSearchParams(window.location.search)
+        const type = queryParameters.get("category")
+        !type?productfetching():applyFilter();
+        
+    },[])
     
     if(isloading){
         return( 
@@ -37,7 +37,6 @@ const Shop = () => {
             </h3>
         </div>
     }
-
 
 
 

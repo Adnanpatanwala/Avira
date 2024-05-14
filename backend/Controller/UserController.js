@@ -90,5 +90,6 @@ const logout = async(req,res)=>{
     res.status(StatusCodes.OK).json('logout');
 }
 
+ 
 
 module.exports = {registerUser,veifyToken,Login,logout};

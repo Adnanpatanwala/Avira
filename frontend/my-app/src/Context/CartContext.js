@@ -10,7 +10,7 @@ const initialState = {
   totalItems: 0,
   totalAmount: 0,
   shippingAmount: 0,
-  address: "",
+  address: [],
   wishlist: [],
 }
 const CartContext = ({ children }) => {
@@ -39,7 +39,7 @@ const CartContext = ({ children }) => {
     const newarr = state.cart.map((item) => {
       return {
         name: item.title,
-        id: item.mainId,
+        id: item.mainId,    
         amount: item.amount
       }
     })
@@ -47,32 +47,36 @@ const CartContext = ({ children }) => {
       const data = await axios.post('http://localhost:5000/api/v1/order', {
         items: newarr,
         tax: 50,
-        shippingfess: 50
+        shippingfess: 50,
+        address:""
       }, {
         headers: {
           'Content-Type': 'application/json',
         },
-        withCredentials: true
-      })
-       
+        withCredentials: true,
+      }) 
 if(data){
       const options = {
 
         key: process.env.REACT_APP_RAZORPAY_KEYID,
-        amount: data?.data?.order.total,
+        amount: data?.data?.OrderCreated.amount,
         currency: "INR",
-        name: "",
+        name: "adnan",
         description: "Test Transaction",
         image: "https://example.com/your_logo",
-        order_id: data.id,
+        order_id: data?.data?.OrderCreated.id,
 
         handler: async function (response) {
           console.log(response);
           const resp = await axios.post("http://localhost:5000/api/v1/order/validate",{...response},{
             headers: {
               'Content-Type': 'application/json',
-            }
-          })
+            } 
+          }) 
+
+          if(resp.data.msg==='success'){
+            console.log('success');
+          }
  
         }, 
         prefill: {
@@ -105,6 +109,39 @@ if(data){
   }
 
 
+  const createAddress = async({response})=>{
+    try {
+      const data = await axios.post("http://localhost:5000/api/v1/address",{
+        ...response
+      })
+      if(data){
+        return data
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getAddress = async(id)=>{
+    try {
+      const data = await axios.get("http://localhost:5000/api/v1/address",{
+        id
+      })
+      if(data){ 
+        addAddress(data);
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    getAddress("66279108d534d63eed20615d");
+  },[])
+
+
   useEffect(() => {
     dispatch({ type: CALCULATE_ITEMS });
   }, [state.cart])
@@ -116,7 +153,9 @@ if(data){
       addTowishlist,
       addToCartFromWishList,
       addAddress,
-      handlePayment
+      handlePayment,
+      createAddress,
+      getAddress
     }}>
       {children}
     </cartContextProvider.Provider>

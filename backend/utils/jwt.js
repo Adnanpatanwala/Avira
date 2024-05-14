@@ -18,11 +18,9 @@ const CreateCookies =({res,user,refreshToken})=>{
     res.cookie('accessToken',accessToken,{
         httpOnly:true,
         secure: process.env.NODE_ENV === 'production',
-        signed: true,
         expires: new Date(Date.now() + oneday),
     });
     res.cookie('refreshToken',refreshTokens,{
-        signed:true,
         secure:process.env.NODE_ENV=='production',
         httpOnly:true,
         expires: new Date(Date.now()+longer),

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Address from '../Components/Address'
 import styled from 'styled-components'
 import CartItem from '../Components/CartItem'
@@ -6,13 +6,15 @@ import Im from "../Images/Demins.svg"
 import SummaryCard from '../Components/SummaryCard'
 import { useCartContext } from '../Context/CartContext'
 import PriceContainer from '../Components/PriceContainer'
+import AddAddress from '../Components/AddAddress'
 
 const OrderSummary = () => {
-    const {totalAmount, totalItems,addAddress,handlePayment} = useCartContext(); 
+    const[openAddress,setAddress] = useState(false);
+    const {totalAmount, totalItems,addAddress,handlePayment,address} = useCartContext(); 
     const item = {totalItems,totalAmount};
 
-     
-
+ 
+ 
 
   return (  
     <Wrapper> 
@@ -22,12 +24,15 @@ const OrderSummary = () => {
       <div className="rightside-cart">
                 <div className="header-cart"> 
                     <h2>Select Address</h2> 
+                    <button className='addaddressbtn' onClick={()=>setAddress(true)}>Add address</button>
                 </div>
                 
                 <div className="listOfitems"> 
-                {
-                    <Address/>   
 
+                {
+                  address &&  address.map((item)=>{
+                        return <Address {...item}/> 
+                    })
                 }
                 </div>
             </div>
@@ -41,7 +46,11 @@ const OrderSummary = () => {
             </div>
              
             </div>
-        </div>
+        </div> 
+        {
+            openAddress && <AddAddress setAddress={setAddress}/>
+        }
+       
     </Wrapper>
   )
 }
@@ -49,6 +58,14 @@ const OrderSummary = () => {
 export default OrderSummary;
 
 const Wrapper = styled.div`
+.addaddressbtn{
+    background-color: #2D2D2D;
+    font-size: 12px !important;
+    border-radius: 10px;
+    padding: 5px 20px;
+    color: white; 
+    
+} 
 .leftside-address{
      
     padding:0px 20px;
@@ -70,7 +87,7 @@ const Wrapper = styled.div`
 }
 .header-cart{
     display: flex;
-    align-items: center;
+    align-items: center; 
     gap: 30px;
     margin-left: 10px;
     padding-bottom: 10px;

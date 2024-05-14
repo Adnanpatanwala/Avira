@@ -7,12 +7,16 @@ const Razorpay = require('razorpay');
 
 const createOrder = async (req, res) => {
    
-    const { items: cartItem, tax, shippingfess } = req.body;
+    const { items: cartItem, tax, shippingfess,address } = req.body;
     if (!cartItem || cartItem.length < 1) {
         throw new custerror.BadRequestError("No item is Provided in cart");
     }
     if (!tax || !shippingfess) {
         throw new custerror.BadRequestError('tax and shipping fees provided')
+    }
+    if(!address){
+        throw new custerror.BadRequestError('No address provided')
+
     }
     
     let orderItem = [];
@@ -59,11 +63,11 @@ const createOrder = async (req, res) => {
             subtotal,
             tax,
             shippingFee:shippingfess,
-            OrderCreated,
-            clientSecret: "paymentIntent.client_secret",
-            user: '65dcf754631dd2a94ca505b1'
-        })
-        res.status(StatusCodes.CREATED).json({ order });
+            OrderCreated, 
+            user:'65d92c4aa4e9357c50b36bd7',
+            address,
+        });
+        res.status(StatusCodes.CREATED).json({ OrderCreated });
    
 
 
@@ -72,11 +76,13 @@ const createOrder = async (req, res) => {
 }
 
 
-const validate = async() =>{
+const validate = async(req,res) =>{
     const {razorpay_payment_id:paymentId,razorpay_order_id:orderId,razorpay_signature:signature} = req.body;
-     const sha = crypto.createHmac("sha256",process.env.RAZORPAY_KEYID);
+    console.log(paymentId,orderId);
+     const sha = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET);
     sha.update(`${orderId}|${paymentId}`)
     const digest = sha.digest("hex");
+    console.log(digest+'  '+signature);
     if(digest!==signature){
         throw new custerror.Unauthenticated('Transaction not valid');
     }
