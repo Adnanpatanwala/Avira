@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
-    title:{
+    category:{
         type:String,
-        required:[true,'enter the name of the product'],
-        trim:true,
-        maxlength:[100,'Enter your name'],
-    },
-    
-    subtitle:{
+        required:[true,"provide the product category"],
+        enum:['office','kitchen','bedroom'],
+    }, 
+    title:{
         type:String,
         required:[true,'enter the name of the product'],
         trim:true,
@@ -20,6 +18,26 @@ const ProductSchema = new mongoose.Schema({
         required :[true,'enter the name of the product'],
         maxlength:[100,'description should be less then 100'],
     },
+    freeshipping:{
+        type:Boolean,
+        default:false,
+    },
+
+    differentType:[{
+    colors:{
+        type:[String],
+        required:true,
+    },
+    inventory:{
+        type:Number,
+        required:true,
+        default:15,
+    },
+    size:{
+        type:[String],
+        enum:["small",'medium','large',"XL","XXL","XXXL"],
+        required:[true,'enter the size']
+    }, 
     price:{
         type:Number,
         required:[true,'price is not entered'],
@@ -29,29 +47,7 @@ const ProductSchema = new mongoose.Schema({
         type:[],
         default:['/uploads/example.PNG'],
     },
-    category:{
-        type:String,
-        required:[true,"provide the product category"],
-        enum:['office','kitchen','bedroom'],
-    }, 
-    colors:{
-        type:[String],
-        required:true,
-    },
-    size:{
-        type:[String],
-        enum:["small",'medium','large',"XL","XXL","XXXL"],
-        required:[true,'enter the size']
-    }, 
-    freeshipping:{
-        type:Boolean,
-        default:false,
-    },
-    inventory:{
-        type:Number,
-        required:true,
-        default:15,
-    },
+}],
     averageRating:{
         type:Number,
         default:0,

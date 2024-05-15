@@ -14,12 +14,7 @@ const Shop = () => {
     const {filterproduct:product} = useFilterContext();
     const [filterOpen,setFilterOpen] = useState(false);
     const {category} = useParams();
-
-    // useEffect(()=>{
-    //     if(!category){
-    //         productfetching();
-    //     }
-    // },[])
+ 
 
     
     if(isloading){
