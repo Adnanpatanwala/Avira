@@ -7,6 +7,7 @@ import CartContex from "./Context/CartContext";
 import Filter from "./Context/FilterContext"
 import reportWebVitals from "./reportWebVitals";
 import AuthenticationContext from "./Context/AuthContext"
+import AddressContext from "./Context/AddressContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +16,9 @@ root.render(
   <ProductContex>
     <CartContex>
       <Filter>
+        <AddressContext>
       <App />
+        </AddressContext>
       </Filter>
     </CartContex>
   </ProductContex>

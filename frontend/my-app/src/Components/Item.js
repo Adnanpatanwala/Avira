@@ -9,6 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 const Item = ({image,category,title,description,price,_id:id}) => { 
     const {addTowishlist} = useCartContext();
     const data =  {image,category,title,description,price,id};
+    console.log(image);
     const [fill,setFill] = useState(true);
     const handleaddtoWishList = (data) =>{
         addTowishlist(data);
@@ -19,7 +20,7 @@ const Item = ({image,category,title,description,price,_id:id}) => {
     <Wrapper>
         	<Link className="product-card" to={`/shop/${id}`}> 
 		<div className="product-tumb">
-			<img src={image[0]} alt=""/>
+			<img src={image} alt=""/>
 		</div>
 		<div className="product-details">
 			<span className="product-catagory">{category}</span>

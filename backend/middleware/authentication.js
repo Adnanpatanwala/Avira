@@ -9,7 +9,7 @@ const authenticate = async(req,res,next)=>{
     try { 
         const {refreshToken,accessToken} = req.cookies;
        
-         
+         console.log(req);
         if(accessToken){
             const payload = VerifyToken(accessToken);
             req.user = payload.payload; 

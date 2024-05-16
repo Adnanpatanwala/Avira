@@ -51,7 +51,7 @@ const SinglePageContent = ({singleProduct}) => {
       <div className="single-product-container">
         <div className="left-prdDetail">
           <div className="maincontainer-img">
-            <img src={image?.[0]} alt="" />
+            <img src={image} alt="" />
           </div>
         </div>
         <div className="right-prdDetail">

@@ -1,24 +1,29 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { createContext } from 'react'
 import axios from 'axios'
-import { ADD_TO_CART, CALCULATE_ITEMS, add_to_WishList, add_to_Cart_to_WishList, add_address } from "../actions";
+import { ADD_TO_CART, CALCULATE_ITEMS, add_to_WishList, add_to_Cart_to_WishList, add_address,Loading,ADD_SELECTEDADDRESS } from "../actions";
 import { reducer } from "../Reducer/CartReducer"
+import { useRef } from 'react';
 const cartContextProvider = createContext();
 
+
 const initialState = {
+  loading:true,
   cart: [],
   totalItems: 0,
   totalAmount: 0,
   shippingAmount: 0,
   address: [],
   wishlist: [],
+  selectedAddress:{},
 }
 const CartContext = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addToCart = (data) => {
-    dispatch({ type: ADD_TO_CART, payload: data });
-  }
+const [state, dispatch] = useReducer(reducer, initialState);
+
+const addToCart = (data) => {
+  dispatch({ type: ADD_TO_CART, payload: data });
+}
 
   const addTowishlist = (data) => {
     dispatch({ type: add_to_WishList, payload: data })
@@ -29,6 +34,7 @@ const CartContext = ({ children }) => {
   }
 
   const addAddress = (data) => {
+    dispatch({type:Loading});
     dispatch({ type: add_address, payload: data })
   }
 
@@ -109,13 +115,16 @@ if(data){
   }
 
 
-  const createAddress = async({response})=>{
-    try {
+  const createAddress = async(response)=>{
+    try { 
       const data = await axios.post("http://localhost:5000/api/v1/address",{
-        ...response
-      })
-      if(data){
-        return data
+        address:{...response,user:"66279108d534d63eed20615d"}
+      },{
+      withCredentials: true
+      }
+    )
+      if(data){ 
+       return getAddress();
       }
       
     } catch (error) {
@@ -128,7 +137,9 @@ if(data){
       const data = await axios.post("http://localhost:5000/api/v1/address/getaddress",{id:"66279108d534d63eed20615d"},{ 
         headers: {
         'Content-Type': 'application/json',
-      }}); 
+      },
+      withCredentials: true
+    }); 
       if(data){ 
         addAddress(data?.data);
       }
@@ -138,14 +149,18 @@ if(data){
     }
   }
 
-  useEffect(()=>{
-    getAddress();
-  },[])
-
+ 
 
   useEffect(() => {
     dispatch({ type: CALCULATE_ITEMS });
   }, [state.cart])
+
+
+  const radioRef = useRef(null);
+  const handleDivClick = () => {
+    radioRef.current.click(); 
+    // dispatch({type:ADD_SELECTEDADDRESS,payload:item})
+  };
 
   return (
     <cartContextProvider.Provider value={{
@@ -156,7 +171,9 @@ if(data){
       addAddress,
       handlePayment,
       createAddress,
-      getAddress
+      getAddress,
+      handleDivClick
+      
     }}>
       {children}
     </cartContextProvider.Provider>

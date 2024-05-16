@@ -14,8 +14,8 @@ const Addaddress = async(req,res)=>{
 
 
 const getaddress = async(req,res)=>{
-    const {id} = req.body; 
-    console.log(req.body);
+    // console.log(req.user);
+    const {id} = req.user; 
     if(!id){
         throw new custError.NotFoundError('id is not present');
     }

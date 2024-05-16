@@ -2,19 +2,14 @@ import React from 'react'
 import { useState,useRef } from 'react'
 import styled from 'styled-components' 
 
-const Address = ({firstname,lastname}) => {
-    const [selectedOption, setSelectedOption] = useState(false);
-  const radioRef = useRef(null);
-
-  const handleDivClick = () => {
-    radioRef.current.click(); 
-  };
+const Address = ({firstname,lastname,address1,address2,city,pincode,state,country}) => {
+   
 
    
     
   return ( 
     <Wrapper> 
-        <label  className='address-label' onClick={handleDivClick}>
+        <label  className='address-label'>
         <div className="left-address" for="address">
         <input
             type="radio"
@@ -27,28 +22,29 @@ const Address = ({firstname,lastname}) => {
         <div className="right-address">
             <div className="addressname">
             <label>Name : </label>
-            <h5>{firstname}{lastname}</h5>
+            <h5>{firstname} {lastname}</h5>
             </div>
             <div className="address-field">
             <p>
-                <label >Addresss :</label>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam esse, commodi quis natus voluptas numquam hic illo ipsam omnis, aut ipsum illum a minus reprehenderit.etur adipisicing elit. Quibusdam esse, commodi quis natus voluptas numquam hic illo ipsam omnis, aut ipsum illum a minus reprehenderit.</p>
+                <label >Addresss :</label> 
+                {address1} {address2}
+                </p>
             </div>
             <div className="addressname">
             <label>City : </label>
-            <h5>Mumbai</h5>
+            <h5>{city}</h5>
             </div>
             <div className="addressname">
             <label>State : </label>
-            <h5>Maharashtra</h5>
+            <h5>{state}</h5>
             </div>
             <div className="addressname">
             <label>Pincode : </label>
-            <h5>400083</h5>
+            <h5>{pincode}</h5>
             </div>
             <div className="addressname">
             <label>Country : </label>
-            <h5>India</h5>
+            <h5>{country}</h5>
             </div>
         </div>
         </label>

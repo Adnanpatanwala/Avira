@@ -2,57 +2,58 @@ import React, { useEffect, useState } from 'react'
 import Address from '../Components/Address'
 import styled from 'styled-components'
 import CartItem from '../Components/CartItem'
-import Im from "../Images/Demins.svg" 
+import Im from "../Images/Demins.svg"
 import SummaryCard from '../Components/SummaryCard'
 import { useCartContext } from '../Context/CartContext'
 import PriceContainer from '../Components/PriceContainer'
 import AddAddress from '../Components/AddAddress'
+import Loading from '../Components/Loading'
+import Leftside from '../Components/address/Leftside'
 
 const OrderSummary = () => {
-    const[openAddress,setAddress] = useState(false);
-    const {totalAmount, totalItems,addAddress,handlePayment,address} = useCartContext(); 
-    const item = {totalItems,totalAmount};
+    const [openAddress, setAddress] = useState(false);
+    const { totalAmount, totalItems, handlePayment, getAddress } = useCartContext();
+    const item = { totalItems, totalAmount };
 
- 
- 
 
-  return (  
-    <Wrapper> 
-        <div className="address-container">
 
-      <div className="cart-container">
-      <div className="rightside-cart">
-                <div className="header-cart"> 
-                    <h2>Select Address</h2> 
-                    <button className='addaddressbtn' onClick={()=>setAddress(true)}>Add address</button>
-                </div>
-                
-                <div className="listOfitems"> 
+    useEffect(() => {
+        getAddress();
+    }, [])
 
-                {
-                     address.map((item)=>{
-                        return <Address {...item}/> 
-                    })
-                }
+
+
+    return (
+        <Wrapper>
+            <div className="address-container">
+
+                <div className="cart-container">
+
+                    <div className="rightside-cart">
+                        <div className="header-cart">
+                            <h2>Select Address</h2>
+                            <button className='addaddressbtn' onClick={() => setAddress(true)}>Add address</button>
+                        </div>
+                        <Leftside setAddress={setAddress} />
+                    </div>
+
+                    <div className="leftside-address">
+                        <div className="listOfitems">
+                            <PriceContainer {...item} />
+                        </div>
+                        <div className="checkout-btn-container">
+                            <button className='checkout-btn' onClick={handlePayment}>Proceed to Payment</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div className="leftside-address"> 
-                <div className="listOfitems">  
-                <PriceContainer {...item}/>
-                </div>
-            <div className="checkout-btn-container">
-            <button className='checkout-btn' onClick={handlePayment}>Proceed to Payment</button>
-        </div>
-            </div>
-             
-            </div>
-        </div> 
-        {
-            openAddress && <AddAddress setAddress={setAddress}/>
-        }
-       
-    </Wrapper>
-  )
+            {
+                openAddress && <AddAddress setAddress={setAddress} />
+            }
+
+        </Wrapper>
+    )
 }
 
 export default OrderSummary;
