@@ -32,8 +32,7 @@ const FilterContext = ({children}) => {
       headers: {
         'Content-Type': 'application/json'
       }});
-      if(data){  
-        console.log(data);
+      if(data){   
         dispatch({type:FILTER_PRODUCTS,payload:data});
       }
     } catch (error) {

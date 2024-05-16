@@ -2,7 +2,7 @@ import React from 'react'
 import { useState,useRef } from 'react'
 import styled from 'styled-components' 
 
-const Address = () => {
+const Address = ({firstname,lastname}) => {
     const [selectedOption, setSelectedOption] = useState(false);
   const radioRef = useRef(null);
 
@@ -27,7 +27,7 @@ const Address = () => {
         <div className="right-address">
             <div className="addressname">
             <label>Name : </label>
-            <h5>Adnan Patnawala</h5>
+            <h5>{firstname}{lastname}</h5>
             </div>
             <div className="address-field">
             <p>

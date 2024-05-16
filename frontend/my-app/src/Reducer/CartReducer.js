@@ -70,7 +70,7 @@ export const reducer =(state,action)=>{
         }
 
         if(action.type===add_address){
-            return {...state,address:action.payload}
+            return {...state,address:[action.payload]}
         }
         
     throw new Error(`no matching ${action.type} action type `)

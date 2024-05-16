@@ -17,6 +17,7 @@ const fileupload = require('express-fileupload');
 const cloudinary = require('cloudinary').v2;
 const reviewroute = require('./Routes/ReviewRoute');
 const Order = require('./Routes/OrderRoutes');
+const Address = require('./Routes/AddressRoute');
 
 
 cloudinary.config({
@@ -43,6 +44,7 @@ app.use('/api/v1',userrouter);
 app.use('/api/v1/product',Productrouter);
 app.use('/api/v1/review',reviewroute);
 app.use('/api/v1/order',Order);
+app.use('/api/v1/address',Address);
     
 
 // routes not found and error 
