@@ -30,7 +30,7 @@ const OrderSummary = () => {
                 <div className="listOfitems"> 
 
                 {
-                  address &&  address.map((item)=>{
+                     address.map((item)=>{
                         return <Address {...item}/> 
                     })
                 }

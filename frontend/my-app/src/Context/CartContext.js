@@ -123,13 +123,14 @@ if(data){
     }
   }
 
-  const getAddress = async(id)=>{
-    try {
-      const data = await axios.get("http://localhost:5000/api/v1/address",{
-        id
-      })
+  const getAddress = async()=>{
+    try {  
+      const data = await axios.post("http://localhost:5000/api/v1/address/getaddress",{id:"66279108d534d63eed20615d"},{ 
+        headers: {
+        'Content-Type': 'application/json',
+      }}); 
       if(data){ 
-        addAddress(data);
+        addAddress(data?.data);
       }
       
     } catch (error) {
@@ -138,7 +139,7 @@ if(data){
   }
 
   useEffect(()=>{
-    getAddress("66279108d534d63eed20615d");
+    getAddress();
   },[])
 
 
