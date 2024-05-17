@@ -1,14 +1,19 @@
 import React from 'react'
 import { useState,useRef } from 'react'
 import styled from 'styled-components' 
+import { useCartContext } from '../Context/CartContext'
 
 const Address = ({firstname,lastname,address1,address2,city,pincode,state,country}) => {
-   
+   const {addSelectedAddress} = useCartContext();
+    const radioRef = useRef(null); 
+    const handleDivClick = () => {
+      radioRef.current.click();  
+    };
 
-   
+ const data = {firstname,lastname,address1,address2,city,pincode,state,country};
     
   return ( 
-    <Wrapper> 
+    <Wrapper onClick={()=>{handleDivClick();addSelectedAddress(data)}}> 
         <label  className='address-label'>
         <div className="left-address" for="address">
         <input

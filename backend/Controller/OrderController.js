@@ -8,6 +8,7 @@ const Razorpay = require('razorpay');
 const createOrder = async (req, res) => {
    
     const { items: cartItem, tax, shippingfess,address } = req.body;
+
     if (!cartItem || cartItem.length < 1) {
         throw new custerror.BadRequestError("No item is Provided in cart");
     }
@@ -18,6 +19,7 @@ const createOrder = async (req, res) => {
         throw new custerror.BadRequestError('No address provided')
 
     }
+    console.log('hello');
     
     let orderItem = [];
     let subtotal = 0;

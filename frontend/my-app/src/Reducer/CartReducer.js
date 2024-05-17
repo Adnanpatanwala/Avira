@@ -1,5 +1,5 @@
  
-import {ADD_TO_CART,CALCULATE_ITEMS,add_to_WishList,add_to_Cart_to_WishList,add_address,Loading,ADD_SELECTEDADDRESS} from "../actions"
+import {ADD_TO_CART,CALCULATE_ITEMS,add_to_WishList,add_to_Cart_to_WishList,add_address,Loading,ADD_SELECTEDADDRESS,ERROR} from "../actions"
 
 export const reducer =(state,action)=>{
     if(action.type==ADD_TO_CART){
@@ -79,6 +79,9 @@ export const reducer =(state,action)=>{
         }
         if(action.type===ADD_SELECTEDADDRESS){
             return {...state,selectedAddress:action.payload};
+        }
+        if(action.type===ERROR){
+            return {...state,error:action.payload,loading:false};
         }
 
     throw new Error(`no matching ${action.type} action type `)

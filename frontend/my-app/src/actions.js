@@ -11,3 +11,4 @@ export const add_to_WishList =  "add_to_WishList";
 export const add_to_Cart_to_WishList =  "add_to_Cart_to_WishList";  
 export const  add_address =  "add_address";  
 export const  ADD_SELECTEDADDRESS =  "ADD_SELECTEDADDRESS";  
+export const  ERROR =  "ERROR";  
