@@ -41,17 +41,17 @@ const addToCart = (data) => {
 
 
   const handlePayment = async (e) => {
-   
+    
     const newarr = state.cart.map((item) => {
       return {
         name: item.title,
         id: item.mainId,    
-        amount: item.amount
+        amount: Number(item.amount),
       }
     })  
     try {
       
-       const data = await axios.post('http://localhost:5000/api/v1/order', {
+      const data = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/order`, {
         items: newarr,
         tax: 50,
         shippingfess: 50,
@@ -62,9 +62,8 @@ const addToCart = (data) => {
         },
         withCredentials: true,
       }) 
-      
       console.log(data);
-
+        
       const options = {
         key: process.env.REACT_APP_RAZORPAY_KEYID,
         amount: Number(data?.data?.OrderCreated.amount),
@@ -76,7 +75,7 @@ const addToCart = (data) => {
 
         handler: async function (response) {
           console.log(response);
-          const resp = await axios.post("http://localhost:5000/api/v1/order/validate",{...response},{
+          const resp = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/order/validate`,{...response},{
             headers: {
               'Content-Type': 'application/json',
             } 
@@ -121,7 +120,7 @@ const addToCart = (data) => {
 
   const createAddress = async(response)=>{
     try { 
-      const data = await axios.post("http://localhost:5000/api/v1/address",{
+      const data = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/address`,{
         address:{...response,user:"66279108d534d63eed20615d"}
       },{
       withCredentials: true
@@ -138,7 +137,7 @@ const addToCart = (data) => {
 
   const getAddress = async()=>{
     try {  
-      const data = await axios.get("http://localhost:5000/api/v1/address/getaddress",{ 
+      const data = await axios.get(`${process.env.REACT_APP_DOMAINURL}/api/v1/address/getaddress`,{ 
       withCredentials: true
     }); 
       if(data){ 

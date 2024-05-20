@@ -15,7 +15,7 @@ const Home = () => {
       <div className="grid-container">
 
         <div className="explore">
-          <NavLink to='/shop?category=all'>
+          <NavLink to='/shop?category=All'>
         <div>
           <h5>Brands Everyone's Crushing on</h5>
           <div className="items-header">
@@ -29,7 +29,7 @@ const Home = () => {
 
 
         <div className="footware">
-          <NavLink to='/about'>
+          <NavLink to='/shop?category=footware'>
         <div> 
           <h5>456 Items</h5>
           <div className="items-header">
@@ -42,6 +42,8 @@ const Home = () => {
         </div>
 
         <div className="sweater">
+          <NavLink to='/shop?category=sweater'>
+
         <div>
           <h5>680 Items</h5>
           <div className="items-header">
@@ -50,9 +52,11 @@ const Home = () => {
           </div>
         </div>
           <img src={Sweater} alt=""  className='widerimg'/>
+          </NavLink>
         </div>
 
         <div className="demins">
+          <NavLink to='/shop?category=demins'>
           <div> 
           <h5>341 Items</h5>
           <div className="items-header">
@@ -61,6 +65,7 @@ const Home = () => {
           </div>
         </div>
           <img src={Demins} alt="" className='widerimg'/>
+          </NavLink>
         </div>
       </div>
 

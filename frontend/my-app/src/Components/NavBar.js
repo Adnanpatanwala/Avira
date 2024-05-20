@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
 import Logo from '../Images/Logo.svg';
 import User from '../Images/usericon.svg';
@@ -11,7 +11,11 @@ import { CiMenuFries } from "react-icons/ci";
 import { MdOutlineClose } from "react-icons/md"; 
 import { FaUserCircle } from "react-icons/fa";
 import { useAuthContext } from '../Context/AuthContext';
-import { FaArrowCircleDown } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa6";
+import { FaCaretUp } from "react-icons/fa";
+import SearchBar from './SearchBar';
+
+
 
 
 
@@ -21,9 +25,29 @@ import { FaArrowCircleDown } from "react-icons/fa";
 const NavBar = () => {
  
     const {cookies} = useAuthContext();
-
+    const Outsideref = useRef();
+    const {logout} = useAuthContext();
     const {totalItems,wishlist} = useCartContext();
     const [openSidebar,setOpenSidebar] = useState(false);
+    const [openSearchbar,setOpenSearchbar] = useState(false);
+    const [openAccountInfo,setOpenAccountInfo] = useState(false);
+    useEffect(()=>{
+        const handleclickOutside = (e)=>{
+            if(Outsideref.current && !Outsideref.current.contains(e.target)){
+                setOpenAccountInfo(false);
+            }
+        }
+        document.addEventListener("mousedown",handleclickOutside);
+        return ()=> document.removeEventListener("mousedown",handleclickOutside);
+    },[])
+
+    const searchinput = useRef();
+    useEffect(()=>{
+        if(openSearchbar && searchinput.current ){
+            searchinput.current.focus();
+        }
+    },[openSearchbar])
+   
    return ( 
     <Wrapper> 
         <nav className='navbar'>
@@ -45,12 +69,25 @@ const NavBar = () => {
                     <div className="login">
                     <NavLink to='/login' ><img src={User} alt="" /> Login/Register</NavLink>
                 </div>:
-                <button className='user-login'><p>{cookies.user}</p>
-                <FaArrowCircleDown />
+                <div className='account-container'>
+                <button className='user-login' onClick={()=>setOpenAccountInfo(!openAccountInfo)}><p>{cookies.user}</p>
+                {openAccountInfo?<FaCaretUp/>:<FaCaretDown />}
                 </button>
+                {
+                openAccountInfo && 
+                <div className="account-container-content" ref={Outsideref}>
+                    <NavLink to='/account'>Account</NavLink>
+                    <NavLink to='/order'>Orders</NavLink> 
+                    <NavLink>Logout</NavLink> 
+                </div>
+                }
+                </div>
                 }
                 <div className="search-btn">
-                    <button><img src={Seatchbtn} alt="" /></button>
+                    <button onClick={()=>setOpenSearchbar(!openSearchbar)}><img src={Seatchbtn} alt="" /></button>
+                    {
+                        openSearchbar && <SearchBar setOpenSearchbar={setOpenSearchbar} searchinput={searchinput}/>
+                    }
                 </div>
                 <div className="cart-btn">
                     <NavLink to='/cart'><img src={CartBtn} alt="" /></NavLink>
@@ -107,6 +144,51 @@ left: 0px;
 top: 0px;
 background-color: white;
 z-index: 5;
+.navbar{
+    position: relative;
+}
+
+.account-container{
+    position: relative;
+}
+.account-container-content>*{
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    color: #212529;
+    font-weight: 500; 
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0px;
+}
+.account-container-content > *:hover{
+    padding-left: 10px;
+    color: #DB6B97;
+    font-weight: 600;
+}
+.account-container-content>:last-child{
+    color: #ff0404;
+ 
+}
+.account-container-content{
+    position: absolute;
+    top:150%;
+    left: 0px; 
+    min-width: 120%;
+    background-color: white;
+    box-shadow: 0px 0px 2px #212529 ;
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: 0ms.5s;
+    animation: account 0.2s linear;
+}
+@keyframes account {
+    0%{
+        top:90%;
+    }
+    100%{
+        top:150%;
+    }
+}
  
 .logo-inside{ 
         background-color: #DB6B97;
@@ -178,8 +260,7 @@ z-index: 5;
  .wishlist-btn button,.search-btn button{
     background: none;
     border: none; 
-
- }
+ } 
  .search-btn button,.cart-btn a,.wishlist-btn a,.login a {
     display: flex;
  }
@@ -278,7 +359,7 @@ z-index: 5;
     gap: 5px;
     align-items: center;
     border-radius: 15px;
-    background-color: #DB6B97;
+    background-color: #212529;
      
   }
   .hamburger button{

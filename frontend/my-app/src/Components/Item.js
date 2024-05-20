@@ -9,7 +9,7 @@ import { FaArrowRight } from "react-icons/fa";
 const Item = ({image,category,title,description,price,_id:id}) => { 
     const {addTowishlist} = useCartContext();
     const data =  {image,category,title,description,price,id};
-    console.log(image);
+  
     const [fill,setFill] = useState(true);
     const handleaddtoWishList = (data) =>{
         addTowishlist(data);

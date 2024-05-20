@@ -52,20 +52,22 @@ const getAllProducts = async (req, res) => {
 };
 
 const getFilterProducts = async (req,res)=>{
-  const  {color,category,size, price} = req.body.newObjects;
+  const  {color,category,size,price} = req.body.newObjects;
+  
+  // console.log(color,category,size, price);
 
-  const query = {};
-  query.price = price;
+  const query = {}; 
   if(category!=='All'){
       query.category = category;
   }
   if(size!=='All'){
-    query.size = {$in:size};
+    query.size = size;
   }
   if(color!=='All'){
-    query.colors = {$in:color};
-  }
-  
+    query.colors = color;
+  } 
+ 
+    query.price ={$lte:price};
    
   const data = await ProductSchema.find(query);
   if(!data){

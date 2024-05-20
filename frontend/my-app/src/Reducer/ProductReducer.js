@@ -11,8 +11,6 @@ export const reducer =(state,action)=>{
         return {...state,error:action.payload,isloading:false};
     }
     if(action.type==SingleProductFetching){
-
-        console.log(state);
         return {...state,singleProduct:{...action.payload.data},isloading:false};
     }
 

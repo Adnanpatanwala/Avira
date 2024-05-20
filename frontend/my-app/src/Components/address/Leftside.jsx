@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useCartContext } from '../../Context/CartContext'
 import Address from '../Address';
 import Loading from '../Loading';
-import styled from 'styled-components';
+import styled from 'styled-components'; 
 
 const Leftside = ({ setAddress }) => {
     const { address, loading, error,addSelectedAddress } = useCartContext();
@@ -13,7 +13,8 @@ const Leftside = ({ setAddress }) => {
     if (loading) {
         return <div className="backloader"><Loading /></div>
     }
-
+ 
+    console.log(error);
     if (error) {
         return   <Wrapper>
             <div className="error-container">

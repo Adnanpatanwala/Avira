@@ -11,6 +11,7 @@ const FilterBox = ({setFilterOpen}) => {
     const {updateFilter,filter,filterproduct:product,applyFilter} = useFilterContext();
     
     const {price,color,size,category,max_price,min_price} = filter;
+
     const sizeArray = uniqueValues(product,"size");
     const colorArray = uniqueValues(product,"colors");
     const categoryArray = uniqueValues(product,"category");
@@ -65,9 +66,9 @@ const FilterBox = ({setFilterOpen}) => {
                             if(item==="All"){
                                 return <button 
                                 key={index} 
-                                data-color={item}
-                                className={color===item?'all-btn-active':'all-btn'}
-                                name='colors' 
+                                data-color='All'
+                                className={color==="All"?'all-btn-active':'all-btn'}
+                                name='color' 
                                 onClick={updateFilter}
                                 >
                                     {item}
@@ -91,17 +92,17 @@ const FilterBox = ({setFilterOpen}) => {
                     <label htmlFor="price">Price</label>
                     <div className="inner-container-price">
                         <input type="range"  id=""
-                            // min={min_price}
-                            // max={max_price}
-                            // value={price}
+                            min={min_price}
+                            max={max_price}
+                            value={price}
                             onChange={updateFilter}
                             name="price"
                             
                         />
                         <div className="price-change-container">
-                            <span>{min_price}</span>
+                            <span>min:{min_price}</span>
                             <p>{price}</p>
-                            <span>{max_price}</span>
+                            <span>max:{max_price}</span>
                         </div>
                     </div>
                 </div>
@@ -155,6 +156,7 @@ label{
     width: 100%;
     border-bottom: 1px solid #2D2D2D;
     padding: 8px 0px;
+    
     h4{
         font-weight: 500;
         color: #2D2D2D;
@@ -206,6 +208,11 @@ label{
         background-color: white;
     }
  }
+ .header-shop{ 
+        button{ 
+            display: none;
+        }
+    }
 
  @media screen and (min-width:992px) and (max-width:1199px) {
     width: 100%;

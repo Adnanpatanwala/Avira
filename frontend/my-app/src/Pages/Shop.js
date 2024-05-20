@@ -6,20 +6,22 @@ import { useFilterContext } from '../Context/FilterContext';
 import { useGlobalProductContex } from '../Context/ProductContex';
 import {FaFilter} from "react-icons/fa"
 import Filtercontainer from "../Components/FilterBox"
-import {useParams } from 'react-router-dom'
+import {useLocation } from 'react-router-dom'
 
 
 const Shop = () => {
     const {isloading,productfetching} = useGlobalProductContex();
     const {filterproduct:product ,applyFilter} = useFilterContext();
     const [filterOpen,setFilterOpen] = useState(false);
-    const {category} = useParams();
+    
     
     useEffect(()=>{ 
         const queryParameters = new URLSearchParams(window.location.search)
-        const type = queryParameters.get("category")
-        !type?productfetching():applyFilter();
-        
+        const type = queryParameters.get("category");
+        productfetching();
+        if(type){
+            applyFilter(type);
+        }
     },[])
     
     if(isloading){
@@ -43,8 +45,6 @@ const Shop = () => {
   return ( 
     <Wrapper className="global-container">
         <div className="shop-container">
-             
-             
               <div className={filterOpen ?`left-cont filter-none`:`left-cont`}>
                 <Filtercontainer setFilterOpen={setFilterOpen}/>
                 </div>
@@ -58,9 +58,7 @@ const Shop = () => {
                   {
                     product.map((items)=>{
                         return ( 
-                            <>
                             <Item key={items._id} {...items}/>  
-                            </>
                         )
                     })
                   }

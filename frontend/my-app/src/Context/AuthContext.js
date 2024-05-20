@@ -12,7 +12,7 @@ const AuthenticationContext = createContext();
      const register = async(data)=>{
       try {
          
-         const res =  await axios.post("http://localhost:5000/api/v1/register",{...data},{ 
+         const res =  await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/register`,{...data},{ 
           headers: {
           'Content-Type': 'application/json',
         }});   
@@ -38,6 +38,20 @@ const AuthenticationContext = createContext();
      }
 
 
+     const logout = async()=>{
+      try {
+        const data = await axios.delete(`${process.env.REACT_APP_DOMAINURL}/api/v1/logout`,{
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials:true
+        });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+     }
+
 
 
 
@@ -47,7 +61,8 @@ const AuthenticationContext = createContext();
       verifyOTP,
       cookies,
       setCookie,
-      removeCookie
+      removeCookie,
+      logout
 
     }}>
         {children}

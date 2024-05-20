@@ -6,7 +6,7 @@ const singleOrderItemSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    
+
     price:{
         type:Number,
         required:true,
@@ -33,6 +33,7 @@ const OrderSchema = new mongoose.Schema({
       },
       address:{
         type:Object, 
+        required:true,
       },
       subtotal: {
         type: Number,
@@ -49,8 +50,7 @@ const OrderSchema = new mongoose.Schema({
         required: true,
       },
       clientSecret: {
-        type: String,
-        required: true,
+        type: String, 
       },
       paymentIntentId: {
         type: String,

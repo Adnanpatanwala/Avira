@@ -6,7 +6,7 @@ const { StatusCodes } = require('http-status-codes');
 const Razorpay = require('razorpay');
 
 const createOrder = async (req, res) => {
-   
+    
     const { items: cartItem, tax, shippingfess,address } = req.body;
 
     if (!cartItem || cartItem.length < 1) {
@@ -19,32 +19,30 @@ const createOrder = async (req, res) => {
         throw new custerror.BadRequestError('No address provided')
 
     }
-    console.log('hello');
     
     let orderItem = [];
     let subtotal = 0;
-    
+     
     for(const item of cartItem) {
         const dbproduct = await ProductSchema.findOne({ _id: item.id });
-        
+          
         if (!dbproduct) { 
             throw new custerror.NotFoundError(`No product found with the id :${item.id}`);
-        }
-        const { title, price,_id } = dbproduct;
-         
+        } 
+        let { title,_id,price } =  dbproduct;
+        console.log(price);
+        
+  
         const singleItems = {
-            amount: Number(item.amount),
             name:title,
-            price,
-            product: _id
-        }
-        orderItem = [...orderItem, singleItems];
-        subtotal += Number(item.amount) * Number(price);
+            price:price||200,
+            amount: Number(item.amount), 
+            product: _id,
+        } 
+        subtotal += Number(item.amount)*Number(price||200);
+        
     }
-        const total = (Number(tax) + subtotal + Number(shippingfess))*100;
-
-        // payment 
-
+    const total = (Number(tax) + subtotal + Number(shippingfess))*100;
         let instance = new Razorpay({ key_id:process.env.RAZORPAY_KEYID, key_secret: process.env.RAZORPAY_SECRET});
         let options = {
             amount: total, 
@@ -54,7 +52,7 @@ const createOrder = async (req, res) => {
         const OrderCreated = await instance.orders.create(options);
         
         if(!OrderCreated){
-            throw new custerror.BadRequestError("order not created")
+            throw new custerror.BadRequestError("order not created");
         }
 
  
@@ -70,10 +68,7 @@ const createOrder = async (req, res) => {
             address,
         });
         res.status(StatusCodes.CREATED).json({ OrderCreated });
-   
-
-
-
+ 
 
 }
 
@@ -91,4 +86,13 @@ const validate = async(req,res) =>{
     res.status(StatusCodes.ACCEPTED).json({msg:"success",orderId,paymentId});
 
 }
-module.exports = {createOrder,validate}
+
+
+const getOrder = async (req,res)=>{
+    const data = await Order.find({});
+    if(!data){
+        throw new custerror.NotFoundError("no Order is present");
+    }
+    res.status(StatusCodes.OK).json(data);
+}
+module.exports = {createOrder,validate,getOrder}

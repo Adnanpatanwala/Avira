@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react'
 import {reducer} from "../Reducer/FilterReducer";
 import {useGlobalProductContex} from '../Context/ProductContex';
-import {UPDATE_FILTER,LOAD_PRODUCTS,FILTER_PRODUCTS} from "../actions";
+import {UPDATE_FILTER,LOAD_PRODUCTS,FILTER_PRODUCTS,Loading} from "../actions";
 import axios from 'axios';
 const initialstate = {
   filterproduct:[],
@@ -21,18 +21,21 @@ const FilterContext = ({children}) => {
   const {product} = useGlobalProductContex();
   const [state,dispatch] = useReducer(reducer,initialstate);
 
-  useEffect(()=>{ 
+  useEffect(()=>{  
     dispatch({type:LOAD_PRODUCTS,payload:product});
   },[product])
   
-  const applyFilter = async()=>{
+  const applyFilter = async(type)=>{
     const {min_price,max_price,...newObjects} = state.filter;
+    if(type){
+      newObjects.category = type;
+    } 
     try {
-      const data = await axios.post('http://localhost:5000/api/v1/product/filter',{newObjects},{
+      const data = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/product/filter`,{newObjects},{
       headers: {
         'Content-Type': 'application/json'
       }});
-      if(data){   
+      if(data){    
         dispatch({type:FILTER_PRODUCTS,payload:data});
       }
     } catch (error) {
@@ -47,8 +50,7 @@ const updateFilter = (e)=>{
 const name = e.target.name;
 let value = e.target.value;
 console.log(name,value); 
-if(name==="category"){
-  console.log(value);
+if(name==="category"){ 
   value = e.target.options[e.target.selectedIndex].text;
 }
 if(name==="color"){

@@ -3,7 +3,7 @@ const {StatusCodes} = require('http-status-codes');
 const  Errorhandler = async(err,req,res,next)=>{
     let customerror =  {
         statuscode : err.statuscodes || StatusCodes.INTERNAL_SERVER_ERROR,
-        msg : err.message || 'some thing went wrong'
+        msg :  err.message || 'some thing went wrong' 
     }
 
     if (err.name === 'ValidationError') {
