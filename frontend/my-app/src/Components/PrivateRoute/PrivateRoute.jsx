@@ -1,21 +1,15 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({Component,path,Unauthneticate}) => {
-    
-console.log(Component,path,Unauthneticate);
 
-if(Unauthneticate){
-    return  <Route to='login'/>
-}
+
+const PrivateRoute = ({element,isauthneticate}) => {
+  
 
   return ( 
-        <Route 
-        path={path}
-        element={<Component/>}
-        />
-    
+     isauthneticate ? element: <Navigate to='/login' replace />
   )
 }
+ 
 
 export default PrivateRoute

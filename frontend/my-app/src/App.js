@@ -28,6 +28,10 @@ function App() {
       <Route path='/about' element={<WithNavBar Component={About} />}/>
       <Route path='/contact' element={<WithNavBar Component={Contact} />}/>
       <Route path='/cart/ordersummary' element={<WithNavBar Component={OrderSummary} />}/>
+
+      {/* <Route path='/cart/ordersummary' element={
+      <PrivateRoute  element={<WithNavBar Component={OrderSummary}/>} isauthneticate={false}/>
+    }/> */}
       <Route path='/wishlist' element={<WithNavBar Component={WishList} />}/>
       <Route path='/order' element={<WithNavBar Component={Order} />}/>
       <Route path='/account' element={<WithNavBar Component={Account} />}/>

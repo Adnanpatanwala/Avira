@@ -5,7 +5,7 @@ const {registerUser,veifyToken,Login,logout} = require('../Controller/UserContro
 
 router.route('/register').post(registerUser);
 router.route('/login').post(Login);
-router.route('/logout').delete(authenticate,logout)
+router.route('/logout').delete(authenticate,logout);
 router.route('/validate-email').post(veifyToken);
 
 

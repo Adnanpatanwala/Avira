@@ -7,8 +7,7 @@ const AuthenticationContext = createContext();
   const AuthContext = ({children}) => {
 
     const [cookies, setCookie, removeCookie] = useCookies();
-  
-
+ 
      const register = async(data)=>{
       try {
          
@@ -62,8 +61,8 @@ const AuthenticationContext = createContext();
       cookies,
       setCookie,
       removeCookie,
-      logout
-
+      logout,
+ 
     }}>
         {children}
     </AuthenticationContext.Provider>

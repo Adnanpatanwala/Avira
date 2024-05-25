@@ -135,16 +135,20 @@ const addToCart = (data) => {
     }
   }
 
-  const getAddress = async()=>{
+  const getAddress = async(navigate)=>{
     try {  
       const data = await axios.get(`${process.env.REACT_APP_DOMAINURL}/api/v1/address/getaddress`,{ 
       withCredentials: true
     }); 
       if(data){ 
         addAddress(data?.data);
+        return;
       }
+      return navigate('/login');
       
     } catch (error) { 
+      navigate('/login');
+      alert(error?.response?.data.error.msg);
       dispatch({type:ERROR,payload:error?.response?.data.error});
     }
   }

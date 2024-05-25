@@ -123,9 +123,9 @@ const Wrapper = styled.div`
 }
 .order-address{
     p{
-        font-size: 12px;
-        display: inline;
+        font-size: 12px; 
         margin-left: 5px;
+        line-break: anywhere;
     } 
     label{
         font-size: 12px;

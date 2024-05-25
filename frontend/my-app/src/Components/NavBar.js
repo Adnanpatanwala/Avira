@@ -67,10 +67,19 @@ const NavBar = () => {
                 { 
                     !cookies?.user ?     
                     <div className="login">
-                    <NavLink to='/login' ><img src={User} alt="" /> Login/Register</NavLink>
-                </div>:
+                    <NavLink to='/login' >
+                        <img src={User} alt=""  className='login-img'/>
+                        <p className='logintxt'>Login/Register</p>
+                        </NavLink>
+                    </div>:
                 <div className='account-container'>
-                <button className='user-login' onClick={()=>setOpenAccountInfo(!openAccountInfo)}><p>{cookies.user}</p>
+                <button className='user-login' onClick={()=>setOpenAccountInfo(!openAccountInfo)}>
+                    <p>{cookies.user}</p>
+                {openAccountInfo?<FaCaretUp/>:<FaCaretDown />}
+                </button>
+
+                <button className='user-login-mobile' onClick={()=>setOpenAccountInfo(!openAccountInfo)}>
+                <img src={User} alt=""/>
                 {openAccountInfo?<FaCaretUp/>:<FaCaretDown />}
                 </button>
                 {
@@ -123,6 +132,7 @@ const NavBar = () => {
             </div>
 
             <div className="links">
+           
                 <li><NavLink to='/' onClick={()=>setOpenSidebar(false)}>Home</NavLink></li>
                 <li><NavLink to='/shop' onClick={()=>setOpenSidebar(false)}>Shop</NavLink></li> 
                 <li><NavLink to='/about' onClick={()=>setOpenSidebar(false)}>About</NavLink></li>
@@ -147,6 +157,7 @@ z-index: 5;
 .navbar{
     position: relative;
 }
+ 
 
 .account-container{
     position: relative;
@@ -369,12 +380,16 @@ z-index: 5;
         align-items: center;
         background:none; 
     }
+
+    .user-login-mobile{
+        display: none;
+    }
   
 
   @media screen and (min-width:767px) and (max-width:991px) {
     .login{
-        display: none;
-    }
+        /* display: none; */
+    } 
     .links {
         gap: 25px;
     }
@@ -405,9 +420,20 @@ z-index: 5;
      .hamburger{
        display: block;
      }
-    .links,.login{
+    .links{
         display: none;
     }
+    
+    .logintxt{
+        display: none;
+    }
+    .user-login-mobile{
+        display: flex; 
+        img{
+            width: 20px;
+            height: 20px;
+        }
+    } 
     .navbar{
         padding: 5px 10px;
     }
@@ -449,7 +475,8 @@ z-index: 5;
         padding: 0px;
     }
     .user-login{
-        display: none;
+        display: none; 
     }
+     
  }
 `

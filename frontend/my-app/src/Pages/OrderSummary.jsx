@@ -9,18 +9,19 @@ import PriceContainer from '../Components/PriceContainer'
 import AddAddress from '../Components/AddAddress'
 import Loading from '../Components/Loading'
 import Leftside from '../Components/address/Leftside'
+import { useNavigate } from 'react-router-dom'
 
 const OrderSummary = () => {
     const [openAddress, setAddress] = useState(false);
     const { totalAmount, totalItems, handlePayment, getAddress } = useCartContext();
+    const navigate = useNavigate();
     const item = { totalItems, totalAmount };
 
 
 
     useEffect(() => {
-        getAddress();
-    }, [])
-
+        getAddress(navigate);
+    },[]);
 
 
     return (

@@ -29,10 +29,9 @@ const Login = () => {
                  setCookie("accessToken",response?.data?.accessToken);
                  setCookie("refreshToken",response?.data?.refreshToken );
                  setCookie("user", response?.data.user.name)
-                 console.log();
                  setEmail('');
                  setPassword(''); 
-                 navigate('/');
+                 navigate(-1);
             } 
 
         } catch (error) {
@@ -195,8 +194,12 @@ z-index: 1;
     .login-container{
         display: block;
     }
+    .login-center-container h4{
+        font-size: 16px;
+    } 
     .bottom-img img{
-        width: 400px !important;
+        max-width: 300px;
+        min-width: 280px;
     }
     .bottom-img{
         right: 0px;
@@ -208,9 +211,9 @@ z-index: 1;
     }
     .right-container-login{
         position: absolute;
-        top: 50%;
+        top: 30%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%,-30%);
         background-color: white;
         padding: 20px;
         border-radius: 10px;
