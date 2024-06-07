@@ -8,6 +8,7 @@ const Razorpay = require('razorpay');
 const createOrder = async (req, res) => {
     
     const { items: cartItem, tax, shippingfess,address } = req.body;
+    
 
     if (!cartItem || cartItem.length < 1) {
         throw new custerror.BadRequestError("No item is Provided in cart");
@@ -30,16 +31,16 @@ const createOrder = async (req, res) => {
             throw new custerror.NotFoundError(`No product found with the id :${item.id}`);
         } 
         let { title,_id,price } =  dbproduct;
-        console.log(price);
-        
+         
   
         const singleItems = {
             name:title,
-            price:price||200,
+            price:price,
             amount: Number(item.amount), 
             product: _id,
         } 
-        subtotal += Number(item.amount)*Number(price||200);
+        subtotal += Number(item.amount)*Number(price);
+        orderItem = [...orderItem,singleItems];
         
     }
     const total = (Number(tax) + subtotal + Number(shippingfess))*100;
@@ -63,8 +64,8 @@ const createOrder = async (req, res) => {
             subtotal,
             tax,
             shippingFee:shippingfess,
-            OrderCreated, 
-            user:'65d92c4aa4e9357c50b36bd7',
+            orderInfo:OrderCreated, 
+            user:req.user.id,
             address,
         });
         res.status(StatusCodes.CREATED).json({ OrderCreated });
@@ -75,24 +76,74 @@ const createOrder = async (req, res) => {
 
 const validate = async(req,res) =>{
     const {razorpay_payment_id:paymentId,razorpay_order_id:orderId,razorpay_signature:signature} = req.body;
-    console.log(paymentId,orderId);
+   
      const sha = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET);
     sha.update(`${orderId}|${paymentId}`)
-    const digest = sha.digest("hex");
-    console.log(digest+'  '+signature);
+    const digest = sha.digest("hex"); 
     if(digest!==signature){
         throw new custerror.Unauthenticated('Transaction not valid');
     }
+   
+    const data = await Order.findOne({"orderInfo.id":orderId});
+    const updatedOrder = await Order.findOneAndUpdate(
+        { "orderInfo.id": orderId },
+        { 
+            $set: { 
+                "orderInfo.status": "created",
+                "orderInfo.amount_paid": data.orderInfo.amount,
+                "orderInfo.amount_due": 0 
+            }
+        },
+        { new: true }
+    );
+
+    if(!updatedOrder){
+        throw new custerror.BadRequestError('order not updated or found')
+    }
+ 
+ 
     res.status(StatusCodes.ACCEPTED).json({msg:"success",orderId,paymentId});
 
 }
 
 
 const getOrder = async (req,res)=>{
-    const data = await Order.find({});
+   const pipeline =  [
+        {
+          '$project': {
+            'id': '$_id', 
+            'date': {
+              '$toDate': '$createdAt'
+            }, 
+            'totalItems': {
+              '$sum': '$orderItem.amount'
+            }
+          }
+        }
+      ]
+    const data = await Order.aggregate(pipeline);
+    if(!data){
+        throw new custerror.NotFoundError("no Order is present");
+    } 
+    res.status(StatusCodes.OK).json(data);
+}
+const deleteOrder = async (req,res)=>{
+    const {id} = req.body;
+    console.log(id);
+    const data = await Order.findOneAndDelete({ "orderInfo.id": id });
     if(!data){
         throw new custerror.NotFoundError("no Order is present");
     }
+    res.status(StatusCodes.OK).json("Deleted");
+}
+const getSingleOrder = async (req,res)=>{
+    const {id} = req.body;
+    const data = await Order.findOne({ _id: id });
+    if(!data){
+        throw new custerror.NotFoundError("no Order is found");
+    } 
     res.status(StatusCodes.OK).json(data);
 }
-module.exports = {createOrder,validate,getOrder}
+ 
+ 
+module.exports = {createOrder,validate,getOrder,deleteOrder,getSingleOrder}

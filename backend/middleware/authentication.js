@@ -8,7 +8,7 @@ const authenticate = async(req,res,next)=>{
     
     try { 
         const {refreshToken,accessToken} = req.cookies;
-        
+         
         if(accessToken){
             const payload = VerifyToken(accessToken);
             req.user = payload.payload; 

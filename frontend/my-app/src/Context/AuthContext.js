@@ -23,7 +23,7 @@ const AuthenticationContext = createContext();
 
      const verifyOTP = async(data)=>{
       try { 
-        const res = await axios.post("http://localhost:5000/api/v1/verify/recieveotp",{otp:data.finalInput,phoneno:data.phoneno},{
+        const res = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/verify/recieveotp`,{otp:data.finalInput,phoneno:data.phoneno},{
           headers: {
             'Content-Type': 'application/json',
           }
@@ -42,10 +42,11 @@ const AuthenticationContext = createContext();
         const data = await axios.delete(`${process.env.REACT_APP_DOMAINURL}/api/v1/logout`,{
           headers: {
             'Content-Type': 'application/json',
-          },
-          withCredentials:true
+          }, 
+          withCredentials:true,
         });
         console.log(data);
+        window.location.reload();
       } catch (error) {
         console.log(error);
       }

@@ -21,7 +21,7 @@ const Shop = () => {
         productfetching();
         if(type){
             applyFilter(type);
-        }
+        } 
     },[])
     
     if(isloading){

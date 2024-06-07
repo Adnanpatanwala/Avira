@@ -7,7 +7,7 @@ import {ProductFetching,Loading,ProductError,SingleProductFetching} from "../act
 const PrdContex = createContext();
 const initialState = {
   product:[],
-  isloading:false,
+  isloading:true,
   singleProduct:{},
   error:"",
  

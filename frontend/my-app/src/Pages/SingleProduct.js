@@ -12,7 +12,7 @@ const SingleProduct = () => {
     SingleProductFetch(id);
   },[]);
 
-  if (isloading || singleProduct==undefined) {
+  if (isloading) {
     return (
       <div className="backloader">
         <Loading />

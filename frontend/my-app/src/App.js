@@ -15,7 +15,8 @@ import OrderSummary from "./Pages/OrderSummary"
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Order from './Pages/Order';
 import Account from './Pages/Account';
-import Contact from './Pages/Contact';
+import Contact from './Pages/Contact'; 
+import SingleOrderPage from './Pages/SingleOrderPage';
 
 function App() {
   return ( 
@@ -34,6 +35,7 @@ function App() {
     }/> */}
       <Route path='/wishlist' element={<WithNavBar Component={WishList} />}/>
       <Route path='/order' element={<WithNavBar Component={Order} />}/>
+      <Route path='/order/:id' element={<WithNavBar Component={SingleOrderPage} />}/>
       <Route path='/account' element={<WithNavBar Component={Account} />}/>
       <Route path='/shop' element={<WithNavBar Component={Shop} />}> </Route>
       <Route path='/shop/:id' element={<WithNavBar Component={SingleProduct} />}/>

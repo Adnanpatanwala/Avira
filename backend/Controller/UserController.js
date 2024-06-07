@@ -87,6 +87,10 @@ const logout = async(req,res)=>{
         httpOnly:true,
         expires:new Date(Date.now())
     });
+    res.cookie('user','logout',{
+        httpOnly:true,
+        expires:new Date(Date.now())
+    });
     res.status(StatusCodes.OK).json('logout');
 }
 

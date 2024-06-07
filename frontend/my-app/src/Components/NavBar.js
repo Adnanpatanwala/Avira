@@ -79,7 +79,7 @@ const NavBar = () => {
                 </button>
 
                 <button className='user-login-mobile' onClick={()=>setOpenAccountInfo(!openAccountInfo)}>
-                <img src={User} alt=""/>
+                <img src={User} alt=""  />
                 {openAccountInfo?<FaCaretUp/>:<FaCaretDown />}
                 </button>
                 {
@@ -87,7 +87,7 @@ const NavBar = () => {
                 <div className="account-container-content" ref={Outsideref}>
                     <NavLink to='/account'>Account</NavLink>
                     <NavLink to='/order'>Orders</NavLink> 
-                    <NavLink>Logout</NavLink> 
+                    <NavLink onClick={()=>logout()} >Logout</NavLink> 
                 </div>
                 }
                 </div>
@@ -156,6 +156,10 @@ background-color: white;
 z-index: 5;
 .navbar{
     position: relative;
+}
+
+.login-img{
+    width: 20px;
 }
  
 

@@ -20,7 +20,7 @@ const Item = ({image,category,title,description,price,_id:id}) => {
     <Wrapper>
         	<Link className="product-card" to={`/shop/${id}`}> 
 		<div className="product-tumb">
-			<img src={image} alt=""/>
+			<img src={image[0]} alt=""/>
 		</div>
 		<div className="product-details">
 			<span className="product-catagory">{category}</span>
@@ -69,6 +69,7 @@ height: 100%;
 }
 .product-tumb{
     overflow: hidden;
+    background-color: white;
 }
 .product-catagory{  
     background-color: #DB6B97; 
@@ -92,10 +93,11 @@ height: 100%;
     align-items: center;
     justify-content: center;
     height: 250px; 
+
 }
 
 .product-tumb img {
-    object-fit: cover;
+    object-fit: contain;
     width: 100%;
     height: 100%;
 }

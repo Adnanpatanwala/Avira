@@ -4,6 +4,7 @@ const AddressSchema = require('../models/AddressSchema');
 
 const Addaddress = async(req,res)=>{
     const {address} = req.body; 
+    address.user = req.user.id;
     if(!address){
         throw new custError.NotFoundError('address is not present');
     } 

@@ -7,6 +7,9 @@ import ToggleBtn from '../Components/ToggleBtn';
 import { FaRegEyeSlash } from "react-icons/fa6"; 
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import flags from 'react-phone-number-input/flags'
  
 import { useAuthContext } from '../Context/AuthContext';
 const Login = () => { 
@@ -23,7 +26,7 @@ const Login = () => {
     const onSignIn = async(e)=>{
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/login',{email:email,password:password});
+            const response = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/login`,{email:email,password:password});
             if(response.status===200){
               
                  setCookie("accessToken",response?.data?.accessToken);
@@ -31,7 +34,8 @@ const Login = () => {
                  setCookie("user", response?.data.user.name)
                  setEmail('');
                  setPassword(''); 
-                 navigate(-1);
+                 navigate("/shop"); 
+                 window.location.reload();
             } 
 
         } catch (error) {
@@ -53,11 +57,9 @@ const Login = () => {
                 <form className="login-center-container" onSubmit={onSignIn}>
                     <h4>Nice to see you again!</h4>
                     {/* email-----     */}
-                    <input type="text"
-                    placeholder='Enter Email'
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
-                    />
+                    
+                    <PhoneInput placeholder="Enter Phone number"  value={email}
+                    onChange={setEmail} flags={flags} defaultCountry='IN' className='phono' />
                     {/* password ------ */}
                     <div className="password-input">
                     <input type={view.type}  placeholder='Enter password'
@@ -112,9 +114,11 @@ z-index: 1;
     display: flex;
     align-items: center;
 }
+.PhoneInput{
+    margin: 20px 0px;
+}
 .login-center-container input{
     width: 88%;
-    margin-top: 20px;
     padding: 6px 20px;
     background-color: #F6F6F6;
     border: 0.1px solid #D2D2D2;

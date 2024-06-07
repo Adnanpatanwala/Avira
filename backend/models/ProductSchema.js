@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
+    productCode:{
+        type:String,
+        required:[true,"provide the product code"],
+    },
     category:{
         type:String,
         required:[true,"provide the product category"],
-        enum:['office','kitchen','bedroom'],
     }, 
     title:{
         type:String,
@@ -23,16 +26,15 @@ const ProductSchema = new mongoose.Schema({
         default:false,
     },
 
-    differentType:[{
+     
         
     colors:{
         type:[String],
         required:true,
     },
     inventory:{
-        type:Number,
+        type:[Object],
         required:true,
-        default:15,
     },
     size:{
         type:[String],
@@ -48,7 +50,7 @@ const ProductSchema = new mongoose.Schema({
         type:[],
         default:['/uploads/example.PNG'],
     },
-}],
+ 
     averageRating:{
         type:Number,
         default:0,
@@ -58,10 +60,6 @@ const ProductSchema = new mongoose.Schema({
         default:0
     }, 
     specification: {
-        type: {
-            type: String,
-            enum: ['Object']
-        },
         Fit: {
             type: String,
             enum: ['Relaxed fit', 'Slim fit', 'Regular fit', 'Custom fit'],

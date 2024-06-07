@@ -6,40 +6,42 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
 const createProduct = async (req, res) => {
-  // const productimage = req.files.productimg;
-  const products = req.body;
-
+  const productimage = Object.values(req.files);
+  // console.log(productimage);
+  
+  const products = JSON.parse(req.body.data);
+  // console.log(products);
+   
   if (!products) {
     throw new custError.BadRequestError("Products not present");
   }
 
-  // let arr = []; 
+  let arr = []; 
 
-  //   for (const items of productimage) {
-  //     try{
-  //       const result = await cloudinary.uploader.upload(, {
-  //         use_filename: true,
-  //         folder: "Clothing",
-  //       });
-  //       fs.unlinkSync(items.tempFilePath);
-  //       arr.push(result.secure_url);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+    for (const items of productimage) {
+      try{
+        const result = await cloudinary.uploader.upload(items.tempFilePath, {
+          use_filename: true,
+          folder: "Clothing",
+        });
+        fs.unlinkSync(items.tempFilePath);
+        arr.push(result.secure_url);
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+
+ 
    
-
-  // if(!req.body){ 
-  //   throw new custError.BadRequestError("err in data");
-  // }
-  
-//   req.body.image = arr;
-  const data = await ProductSchema.create(...products);
+  products.user = "65d92c4aa4e9357c50b36bd7";
+  products.image = arr;
+  const data = await ProductSchema.create(products);
   if(!data){
     throw new custError.BadRequestError("err in data")
   }
+ 
 
-  res.status(StatusCodes.OK).json(data);
+  res.status(StatusCodes.OK).json("Product added successfully");
 };
 
 const getAllProducts = async (req, res) => {

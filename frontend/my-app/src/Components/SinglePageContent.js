@@ -4,7 +4,8 @@ import Star from "../Components/Stars"
 import { Link } from "react-router-dom"; 
 import QuantityBtn from "../Components/QuantityBtn";
 import {useCartContext} from "../Context/CartContext"
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6"; 
+import Loading from "./Loading";
 
 const SinglePageContent = ({singleProduct}) => {
     
@@ -23,10 +24,11 @@ const SinglePageContent = ({singleProduct}) => {
         noOfRating,
         title,
       } = singleProduct;
-    const {addToCart} = useCartContext();
+    const {addToCart} = useCartContext(); 
     const [mainColor, setMainColor] = useState(colors?.[0]);
     const [amount, setAmount] = useState(1);
     const [itemSize, setitemSize] = useState(size?.[0]);
+    const [images,setImages] = useState(image?.[0]);
   const increase = () => {
     setAmount((old) => {
       let temp = old + 1;
@@ -46,12 +48,23 @@ const SinglePageContent = ({singleProduct}) => {
     });
   };
 
+  
+
   return (
     <Wrapper>
       <div className="single-product-container">
         <div className="left-prdDetail">
+          <div className="image-list">
+            {
+              image && image.map((item,index)=>{
+                return <div className="small-img" key={index} onClick={()=>setImages(item)}>
+                     <img src={item} alt="images"/>
+                  </div>
+              })
+            }
+          </div>
           <div className="maincontainer-img">
-            <img src={image} alt="" />
+            <img src={images} alt="" />
           </div>
         </div>
         <div className="right-prdDetail">
@@ -135,6 +148,17 @@ const SinglePageContent = ({singleProduct}) => {
 
 export default SinglePageContent;
 const Wrapper = styled.div`
+.small-img{
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
 .product-color{
   width: 25px;
   height: 25px;
@@ -151,16 +175,20 @@ const Wrapper = styled.div`
   gap: 10px;
 }
   .left-prdDetail {
-    width: 400px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    /* width: 400px; */
     margin: auto 20px;
     margin-left: auto;
   }
   .maincontainer-img {
     width: 400px;
     height: 400px;
-    margin: 30px 20px;
+    margin: 30px 20px;  
   }
   .maincontainer-img img {
+    object-fit: contain;
     width: 100%;
     height: 100%;
   }

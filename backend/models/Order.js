@@ -43,7 +43,13 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      
       orderItem:[singleOrderItemSchema],
+
+      orderInfo:{
+        type:Object,
+        required:true
+      },
       user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',

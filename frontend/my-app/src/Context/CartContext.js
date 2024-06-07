@@ -3,7 +3,7 @@ import { createContext } from 'react'
 import axios from 'axios'
 import { ADD_TO_CART, CALCULATE_ITEMS, add_to_WishList, add_to_Cart_to_WishList, add_address,Loading,ADD_SELECTEDADDRESS,ERROR } from "../actions";
 import { reducer } from "../Reducer/CartReducer"
-import { useRef } from 'react';
+import { useRef } from 'react'; 
 const cartContextProvider = createContext();
 
 
@@ -40,6 +40,7 @@ const addToCart = (data) => {
   }
 
 
+
   const handlePayment = async (e) => {
     
     const newarr = state.cart.map((item) => {
@@ -61,8 +62,7 @@ const addToCart = (data) => {
           'Content-Type': 'application/json',
         },
         withCredentials: true,
-      }) 
-      console.log(data);
+      })  
         
       const options = {
         key: process.env.REACT_APP_RAZORPAY_KEYID,
@@ -74,14 +74,16 @@ const addToCart = (data) => {
         order_id: data?.data?.OrderCreated.id,
 
         handler: async function (response) {
-          console.log(response);
+        
           const resp = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/order/validate`,{...response},{
             headers: {
               'Content-Type': 'application/json',
-            } 
+            },
+            withCredentials:true
           }) 
 
           if(resp.data.msg==='success'){
+            
             console.log('success');
           }
  
@@ -98,14 +100,15 @@ const addToCart = (data) => {
 
       const rzp1 = new window.Razorpay(options);
 
-      rzp1.on("payment.failed", function (response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
+      rzp1.on("payment.failed",async function(response) {
+        
+        alert(response.error.description); 
+        const resp = await axios.delete(`${process.env.REACT_APP_DOMAINURL}/api/v1/order`,{id:response?.error.metadata.order_id},{
+          headers: {
+            'Content-Type':'application/json',
+          },
+          withCredentials:true,
+        }) 
       });
 
       rzp1.open();
@@ -121,7 +124,7 @@ const addToCart = (data) => {
   const createAddress = async(response)=>{
     try { 
       const data = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/address`,{
-        address:{...response,user:"66279108d534d63eed20615d"}
+        address:{...response}
       },{
       withCredentials: true
       }

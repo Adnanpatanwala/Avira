@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const OrderPrdItem = () => {
+const OrderPrdItem = ({name,price,amount}) => {
   return (
     <Wrapper> 
-        <td className='cust-tb'>2 x </td>
-        <td className='prd-tb'> Red T-shirt lorem15</td>
-        <td className='cust-tb'>₹200</td>
+        <td className='cust-tb'>{amount} x </td>
+        <td className='prd-tb'>  {name}</td>
+        <td className='cust-tb'>₹{price}</td>
     </Wrapper>
   )
 }
