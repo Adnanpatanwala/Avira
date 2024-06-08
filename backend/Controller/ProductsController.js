@@ -55,8 +55,7 @@ const getAllProducts = async (req, res) => {
 
 const getFilterProducts = async (req,res)=>{
   const  {color,category,size,price} = req.body.newObjects;
-  
-  // console.log(color,category,size, price);
+   
 
   const query = {}; 
   if(category!=='All'){
@@ -88,6 +87,8 @@ const getSingleProducts = async (req, res) => {
   }
   res.status(StatusCodes.OK).json(data);
 };
+
+
 const updateProduct = async (req, res) => {
   const { id: productId } = req.params;
   const data = req.body;
@@ -102,6 +103,10 @@ const updateProduct = async (req, res) => {
   }
   res.status(StatusCodes.OK).json("Product Updated");
 };
+
+
+
+
 const deleteProduct = async (req, res) => {
   const { id: productId } = req.params;
   const products = await ProductSchema.findOne({ _id: productId });
@@ -109,29 +114,12 @@ const deleteProduct = async (req, res) => {
     throw new custError.BadRequestError(`no product with the id ${productId}`);
   }
   await products.deleteOne();
-  res.status(StatusCodes.OK).json(products);
+  res.status(StatusCodes.OK).json("Deleted successfully");
 };
 
-const uploadImage = async (req, res) => {
-  if (req.files) {
-    throw new custError.BadRequestError("no image found");
-  }
-  const productimg = req.files.image;
-  if (!productimg.mimetype.startsWith("image")) {
-    throw new BadRequestError("not correct format");
-  }
-  const maxsize = 1024 * 1024;
-  if (productimg.size > maxsize) {
-    throw new BadRequestError("image size shoule be less");
-  }
 
-  const imagepath = path.join(
-    __dirname,
-    "../public/uploads/" + `${productimg.name}`
-  );
-  await productimg.mv(imagepath);
-  res.status(StatusCodes.OK).json({ image: `/uploads/${imagepath}` });
-};
+
+ 
 
 module.exports = {
   getAllProducts,
@@ -139,6 +127,6 @@ module.exports = {
   deleteProduct,
   getSingleProducts,
   createProduct,
-  uploadImage,
+ 
   getFilterProducts
 };

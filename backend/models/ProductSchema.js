@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema({
     description:{
         type:String,
         required :[true,'enter the name of the product'],
-        maxlength:[100,'description should be less then 100'],
+        maxlength:[300,'description should be less then 100'],
     },
     freeshipping:{
         type:Boolean,
