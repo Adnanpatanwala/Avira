@@ -13,7 +13,7 @@ const VerifyToken = (token)=>{
 const CreateCookies =({res,user,refreshToken})=>{
     const accessToken = createJwt({payload : user});
     const refreshTokens = createJwt({payload:user,refreshToken});
-    const oneday=1000;
+    const oneday=1000*60*60;
     const longer = 1000*60*60*24*30;
 
     res.cookie('accessToken',accessToken,{

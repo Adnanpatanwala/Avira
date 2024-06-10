@@ -15,13 +15,12 @@ const OrderSummary = () => {
     const [openAddress, setAddress] = useState(false);
     const { totalAmount, totalItems, handlePayment, getAddress } = useCartContext();
     const navigate = useNavigate();
-    const item = { totalItems, totalAmount };
+    const item = {totalItems,totalAmount};
 
 
 
     useEffect(() => {
         getAddress(navigate);
-        
     },[]);
 
 

@@ -208,7 +208,7 @@ z-index: 1;
     .bottom-img{
         right: 0px;
     }
-    .left-container-login img{
+    .left-container-login img {
         margin-left: 10px;
         margin-top: 15px;
         width: 80px;

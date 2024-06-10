@@ -7,7 +7,11 @@ const { StatusCodes } = require('http-status-codes');
 const authenticate = async(req,res,next)=>{
     
     try { 
-        const {refreshToken,accessToken} = req.cookies;
+        const {refreshToken,accessToken} = req.signedCookies;
+        
+        if(!refreshToken && !accessToken){
+            throw new custError.NotFoundError('no access token ans refresh token is provided');
+        }
          
         if(accessToken){
             const payload = VerifyToken(accessToken);

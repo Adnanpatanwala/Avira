@@ -5,8 +5,10 @@ import { HiHeart } from "react-icons/hi";
 import {useCartContext} from "../Context/CartContext";
 import {Link} from 'react-router-dom'
 import { FaArrowRight } from "react-icons/fa";
+import { FaStar } from "react-icons/fa6";
 
-const Item = ({image,category,title,description,price,_id:id}) => { 
+
+const Item = ({image,category,title,description,price,_id:id,noOfRating}) => { 
     const {addTowishlist} = useCartContext();
     const data =  {image,category,title,description,price,id};
   
@@ -19,6 +21,7 @@ const Item = ({image,category,title,description,price,_id:id}) => {
   return (
     <Wrapper>
         	<Link className="product-card" to={`/shop/${id}`}> 
+            <div className="rating"><FaStar/>{noOfRating}/5</div>
 		<div className="product-tumb">
 			<img src={image[0]} alt=""/>
 		</div>
@@ -45,6 +48,23 @@ const Wrapper = styled.div`
 width: 100%;
 height: 100%;
 
+.rating{
+    position: absolute;
+    right: 10px;
+    top: 10px;  
+    background-color: #2D2D2D;
+    opacity: 0.7;
+    color: white;
+    font-size: 12px;
+    z-index: 3;
+    padding: 2px 8px; 
+    border-radius: 20px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    
+}
+
 
 .product-card { 
     a{
@@ -54,7 +74,8 @@ height: 100%;
     box-shadow: 0px 5px 9px #dfdfdf;
     background-color: #fafafa !important;
     display: block; 
-     z-index: 2;
+    z-index: 2;
+    position: relative;
     
 }
 .product-card:hover{  
@@ -97,7 +118,7 @@ height: 100%;
 }
 
 .product-tumb img {
-    object-fit: contain;
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }

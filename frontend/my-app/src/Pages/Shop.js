@@ -19,9 +19,7 @@ const Shop = () => {
         const queryParameters = new URLSearchParams(window.location.search)
         const type = queryParameters.get("category");
         productfetching();
-        if(type){
-            applyFilter(type);
-        } 
+         
     },[])
     
     if(isloading){
@@ -39,6 +37,7 @@ const Shop = () => {
             </h3>
         </div>
     }
+ 
 
 
 
@@ -273,6 +272,8 @@ color: white;
         justify-content: center;
         grid-template-columns: 50% 50%;
         grid-gap: 10px;
+        margin: auto;
+        max-width: 370px;
     }
     .header-shop-heading{
         display: flex;
@@ -313,6 +314,7 @@ color: white;
     } 
     .product-tumb img{
         border-radius: 5px;
+        object-fit: cover;
     }
     .header-shop-heading{
         display: flex;

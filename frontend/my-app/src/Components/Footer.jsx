@@ -1,6 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
-import Logo from "../Images/Logo.svg"
+import styled from 'styled-components' 
 import { CiFacebook } from "react-icons/ci";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
@@ -18,8 +17,7 @@ const Footer = () => {
   <footer className="footer">
   	 <div className="footer-container">
         <div className="header-footer">
-            <div className="logo">
-                {/* <img src={Logo} alt="" /> */}
+            <div className="logo"> 
                 <NavLink to='/' className='logo-inside'>Fatema's store</NavLink>
             </div>
             <div className="newsletter">

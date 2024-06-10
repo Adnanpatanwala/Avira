@@ -221,6 +221,14 @@ label{
  
  @media screen and (min-width:767px) and (max-width:991px) {
     width: 300px;
+    .header-shop{
+        display: flex;
+        justify-content: space-between;
+        button{
+            font-size: 20px;
+            display: block;
+        }
+    }
 }
 
 @media screen and (max-width:767px) {
@@ -229,6 +237,7 @@ label{
         justify-content: space-between;
         button{
             font-size: 20px;
+            display: block;
         }
     }
  }

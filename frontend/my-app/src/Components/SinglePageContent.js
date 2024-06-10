@@ -139,6 +139,8 @@ const SinglePageContent = ({singleProduct}) => {
             >
               Add to Cart
             </Link>
+
+            <Link to='/shop' className="bck-shopping">Back to shopping</Link>
           </div>
         </div>
       </div>
@@ -148,6 +150,16 @@ const SinglePageContent = ({singleProduct}) => {
 
 export default SinglePageContent;
 const Wrapper = styled.div`
+.bck-shopping{
+  color: #db6b97; 
+  border: 1px solid #db6b97;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  box-sizing: border-box;
+}
 .small-img{
   width: 100px;
   height: 100px;
@@ -156,7 +168,7 @@ const Wrapper = styled.div`
   img{
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 .product-color{
@@ -309,7 +321,15 @@ const Wrapper = styled.div`
       margin-bottom: 20px;
     }
     .left-prdDetail{
-      width: 100%;
+      width: 100%; 
+      flex-direction: column-reverse;
+    }
+    .small-img img{
+      object-fit: cover;
+    }
+    .image-list{
+      display: flex;
+      max-width: 100%;
     }
     .maincontainer-img,.right-prdDetail{
       width: 100%;

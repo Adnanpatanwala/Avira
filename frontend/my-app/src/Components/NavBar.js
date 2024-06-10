@@ -31,6 +31,10 @@ const NavBar = () => {
     const [openSidebar,setOpenSidebar] = useState(false);
     const [openSearchbar,setOpenSearchbar] = useState(false);
     const [openAccountInfo,setOpenAccountInfo] = useState(false);
+    const queryParameters = new URLSearchParams(window.location.search)
+    
+    console.log(queryParameters);
+
     useEffect(()=>{
         const handleclickOutside = (e)=>{
             if(Outsideref.current && !Outsideref.current.contains(e.target)){
@@ -447,6 +451,9 @@ z-index: 5;
     }
     .logo-inside{
         font-size: 18px;
+        border: 1px solid #db6b97;
+        border-radius: 10px;
+        padding: 0px 10px;
     }
     .logo img{
         width: 100%;
@@ -472,11 +479,9 @@ z-index: 5;
 
     }
     .logo-inside{
-        background: none;
-        border: none;
-        color: #DB6B97;
-        font-size: 15px;
-        padding: 0px;
+        background: none; 
+        color: #DB6B97; 
+        
     }
     .user-login{
         display: none; 

@@ -79,18 +79,24 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled.div`
+
+.explore a ,.footware a ,.footware a,.sweater a ,.demins a{
+   color: #2D2D2D;
+}
   
   .items-header{ 
     display: flex;
     gap: 5px;
     align-items: center;
   } 
-  .explore div,.footware div ,.footware div,.sweater div ,.demins div{
+  .explore div:first-child,.footware div:first-child ,.footware div:first-child,.sweater div:first-child ,.demins div:first-child{
     position: absolute; 
     top: 30px; 
     margin-left: 10px;
   }
-   
+  .explore div:nth-child(2), .footware div:nth-child(2), .footware div:nth-child(2),   .sweater div:nth-child(2),  .demins div:nth-child(2){
+    margin-left: 15px;
+  }
   .grid-container>*{
     position: relative; 
   }
@@ -141,10 +147,12 @@ const Wrapper = styled.div`
   .explore .items-header,  .footware .items-header,.footware .items-header, .sweater .items-header,.demins .items-header{
     font-size: 13px;
   } 
-   .explore div,   .footware div,  .footware div,   .sweater div,   .demins div {
+  .explore div:nth-child(2), .footware div:nth-child(2), .footware div:nth-child(2),   .sweater div:nth-child(2),  .demins div:nth-child(2) {
       top: 25px;
    }
 }
+
+ 
 
   @media screen and (max-width:767px) {
     .grid-container{  
@@ -174,6 +182,29 @@ const Wrapper = styled.div`
      .grid-container {
       margin-top: 20px;
      }
+    .explore div:first-child,.footware div:first-child ,.footware div:first-child,.sweater div:first-child ,.demins div:first-child{ 
+    top: 10px;
   }
+  }
+
+  @media screen and (min-width:500px) and (max-width:767px) {
+    .grid-container{
+      display: grid;
+    }
+  .grid-container{
+    grid-template-columns: none !important;
+  } 
+  .explore h5,   .footware h5,  .footware h5,  .sweater h5,   .demins h5 {
+    font-size: 11px; 
+    max-width: 130px;
+    margin: 0px;
+  }
+  .items-header h3{
+    font-size: 12px;
+  } 
+  .explore div:first-child,.footware div:first-child ,.footware div:first-child,.sweater div:first-child ,.demins div:first-child{ 
+    top: 15px;
+  }
+}
    
 `

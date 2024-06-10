@@ -44,8 +44,7 @@ const AuthenticationContext = createContext();
             'Content-Type': 'application/json',
           }, 
           withCredentials:true,
-        });
-        console.log(data);
+        }); 
         window.location.reload();
       } catch (error) {
         console.log(error);
