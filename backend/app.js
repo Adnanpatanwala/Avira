@@ -18,6 +18,7 @@ const cloudinary = require('cloudinary').v2;
 const reviewroute = require('./Routes/ReviewRoute');
 const Order = require('./Routes/OrderRoutes');
 const Address = require('./Routes/AddressRoute');
+const Shiprocket = require("./Routes/ShiprocketRoutes");
 
 
 cloudinary.config({
@@ -47,6 +48,7 @@ app.use('/api/v1/product',Productrouter);
 app.use('/api/v1/review',reviewroute);
 app.use('/api/v1/order',Order);
 app.use('/api/v1/address',Address);
+app.use('/api/v1/sr',Shiprocket);
     
 
 // routes not found and error 
