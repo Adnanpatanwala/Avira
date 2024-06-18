@@ -75,7 +75,7 @@ const addToCart = (data) => {
 
         handler: async function (response) {
         
-          const resp = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/order/validate`,{...response},{
+          const resp = await axios.post(`${process.env.REACT_APP_DOMAINURL}/api/v1/order/validate`,{...response,newarr},{
             headers: {
               'Content-Type': 'application/json',
             },
@@ -83,8 +83,7 @@ const addToCart = (data) => {
           }) 
 
           if(resp.data.msg==='success'){
-            
-            console.log('success');
+             
           }
  
         }, 

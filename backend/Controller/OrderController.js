@@ -4,6 +4,7 @@ const custerror = require('../Errors/index');
 const crypto = require('crypto');
 const { StatusCodes } = require('http-status-codes');
 const Razorpay = require('razorpay');
+const   axios  = require('axios');
 
 const createOrder = async (req, res) => {
     
@@ -58,16 +59,16 @@ const createOrder = async (req, res) => {
 
  
 
-        const order = await Order.create({
-            orderItem,
-            total,
-            subtotal,
-            tax,
-            shippingFee:shippingfess,
-            orderInfo:OrderCreated, 
-            user:req.user.id,
-            address,
-        });
+        // const order = await Order.create({
+        //     orderItem,
+        //     total,
+        //     subtotal,
+        //     tax,
+        //     shippingFee:shippingfess,
+        //     orderInfo:OrderCreated, 
+        //     user:req.user.id,
+        //     address,
+        // });
         res.status(StatusCodes.CREATED).json({ OrderCreated });
  
 
@@ -75,7 +76,7 @@ const createOrder = async (req, res) => {
 
 
 const validate = async(req,res) =>{
-    const {razorpay_payment_id:paymentId,razorpay_order_id:orderId,razorpay_signature:signature} = req.body;
+    const {razorpay_payment_id:paymentId,razorpay_order_id:orderId,razorpay_signature:signature,newarr} = req.body;
    
      const sha = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET);
     sha.update(`${orderId}|${paymentId}`)
@@ -84,22 +85,33 @@ const validate = async(req,res) =>{
         throw new custerror.Unauthenticated('Transaction not valid');
     }
    
-    const data = await Order.findOne({"orderInfo.id":orderId});
-    const updatedOrder = await Order.findOneAndUpdate(
-        { "orderInfo.id": orderId },
-        { 
-            $set: { 
-                "orderInfo.status": "created",
-                "orderInfo.amount_paid": data.orderInfo.amount,
-                "orderInfo.amount_due": 0 
-            }
-        },
-        { new: true }
-    );
+    // const data = await Order.findOne({"orderInfo.id":orderId});
+    // const updatedOrder = await Order.findOneAndUpdate(
+    //     { "orderInfo.id": orderId },
+    //     { 
+    //         $set: { 
+    //             "orderInfo.status": "created",
+    //             "orderInfo.amount_paid": data.orderInfo.amount,
+    //             "orderInfo.amount_due": 0
+    //         }
+    //     },
+    //     { new: true }
+    // );
 
-    if(!updatedOrder){
-        throw new custerror.BadRequestError('order not updated or found')
+    // if(!updatedOrder){
+    //     throw new custerror.BadRequestError('order not updated or found')
+    // }
+
+    const data = {
+        
     }
+ 
+    const createOrder = await axios.post("http://localhost:5000/api/v1/sp/createorder",data);
+
+
+
+
+
  
  
     res.status(StatusCodes.ACCEPTED).json({msg:"success",orderId,paymentId});
