@@ -7,8 +7,8 @@ const { StatusCodes } = require('http-status-codes');
 const authenticate = async(req,res,next)=>{
     
     try { 
-        const {refreshToken,accessToken} = req.signedCookies;
-        
+        const {refreshToken,accessToken} = req.cookies;
+        console.log(req);
         if(!refreshToken && !accessToken){
             throw new custError.NotFoundError('no access token ans refresh token is provided');
         }
